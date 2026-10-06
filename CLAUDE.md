@@ -69,7 +69,8 @@ Fica dentro da tabela "TABELA TIKTOKSHOP_2".
 - A = Product_id, B = SKU_id, C = Preço da oferta em texto com **ponto** (ex.: `35.90`).
 - D e E ficam vazias, só com o cabeçalho.
 - Sempre **valores colados, nunca fórmula**.
-- As colunas G a M são só conferência. O Excel enviado ao usuário tem apenas A a E, montado sobre o modelo original.
+- As colunas G a M são só conferência. A coluna N é a DATA DE ENTRADA.
+- O Excel enviado ao usuário tem apenas A a E, montado sobre o modelo original.
 
 ## Regras de preço
 
@@ -95,7 +96,7 @@ Fica dentro da tabela "TABELA TIKTOKSHOP_2".
 ## Processo quando chegar uma nova planilha de produtos do TikTok
 
 1. Compare com a BASE PRODUTOS TIKTOK pelo ID do SKU e identifique só os SKUs novos.
-2. Adicione os novos na BASE com a DATA DE ENTRADA do dia.
+2. Adicione os novos na BASE com a DATA DE ENTRADA do dia (coluna V). Na PROMOÇÃO, a data vai na coluna N.
 3. Para cada SKU novo, verifique se já está no CONTROLE (pelo SKU Bling). Se não estiver:
    - busque o custo (fornecedor padrão) e o preço cheio no Bling;
    - calcule o preço pelas regras acima;
