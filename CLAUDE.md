@@ -53,7 +53,7 @@ Fica dentro da tabela "TABELA TIKTOKSHOP_2".
 | AA | Preço Shopee (ref) |
 
 - Linhas laranja são divisórias.
-- Faixas amarelas separam os lotes de produtos criados: linha 414 (20 produtos de 06/10/2026 14:15), linha 435 (134 produtos do lote 06/10/2026 22:35, linhas 436 a 569) linha 570 (430 produtos do lote 07/10/2026 13:42, linhas 571 a 1000) e linha 1001 (187 produtos do lote 07/10/2026 18:44, linhas 1002 a 1188).
+- Faixas amarelas separam os lotes de produtos criados: linha 414 (20 produtos de 06/10/2026 14:15), linha 435 (134 produtos do lote 06/10/2026 22:35, linhas 436 a 569) linha 570 (430 produtos do lote 07/10/2026 13:42, linhas 571 a 1000) e linha 1001 (188 produtos do lote 07/10/2026 18:44, linhas 1002 a 1189).
 - Kits (ex.: "Par de pneus"): a coluna OBS (T) registra a composição usada no custo.
 - Cores da margem (col. M): vermelho abaixo de 10%, amarelo de 10% a 15%, verde a partir de 15%.
 
@@ -134,7 +134,8 @@ Fica dentro da tabela "TABELA TIKTOKSHOP_2".
   - Promoção e Excel só com os 490 novos (PROMOÇÕES, linhas 378 a 867).
 - **07/10/2026 18:44 (4ª carga, exportação com todos os ativos, 1101 SKUs):**
   - 240 SKUs novos na BASE (linhas 868 a 1107, fundo lilás). Os 5 anúncios duplicados da 3ª carga saíram do TikTok.
-  - 51 já estavam no CONTROLE. Os outros 187 foram criados (linhas 1002 a 1188, abaixo da faixa amarela 1001).
-  - 126 no menor canal, 44 subidos para 10%, 16 sem referência (15%). 22491 foi para R$ 31,90 (venda igual ao cheio, 20%).
-  - Fora da promoção: 16859 (não existe no Bling) e 12022 (margem de 7,9% até no preço cheio).
-  - Promoção e Excel com 238 SKUs (PROMOÇÕES, linhas 868 a 1107).
+  - 51 já estavam no CONTROLE. Os outros 188 foram criados (linhas 1002 a 1189, abaixo da faixa amarela 1001).
+  - 126 no menor canal, 44 subidos para 10%, 17 sem referência (15%). 22491 foi para R$ 31,90 (venda igual ao cheio, 20%).
+  - 16859 não voltou na consulta em lote da API, mas existe no Bling: foi criado depois (linha 1189, R$ 224,90). Se um SKU não aparecer, confirme buscando só ele.
+  - Fora da promoção: 12022 (margem de 7,9% até no preço cheio).
+  - Promoção e Excel com 239 SKUs (PROMOÇÕES, linhas 868 a 1107).
