@@ -53,7 +53,7 @@ Fica dentro da tabela "TABELA TIKTOKSHOP_2".
 | AA | Preço Shopee (ref) |
 
 - Linhas laranja são divisórias.
-- Faixas amarelas separam os lotes de produtos criados: linha 414 (20 produtos de 06/10/2026 14:15) e linha 435 (134 produtos do lote 06/10/2026 22:35, linhas 436 a 569).
+- Faixas amarelas separam os lotes de produtos criados: linha 414 (20 produtos de 06/10/2026 14:15), linha 435 (134 produtos do lote 06/10/2026 22:35, linhas 436 a 569) e linha 570 (430 produtos do lote 07/10/2026 13:42, linhas 571 a 1000).
 - Kits (ex.: "Par de pneus"): a coluna OBS (T) registra a composição usada no custo.
 - Cores da margem (col. M): vermelho abaixo de 10%, amarelo de 10% a 15%, verde a partir de 15%.
 
@@ -63,7 +63,7 @@ Fica dentro da tabela "TABELA TIKTOKSHOP_2".
 - A = ID do produto, G = ID do SKU, K = SKU do vendedor (= SKU Bling). Os três ficam em texto, porque os IDs têm 19 dígitos.
 - U = linha no CONTROLE. A fórmula compara com `VALUE()`, porque o SKU pode vir com zero à esquerda.
 - V = DATA E HORA DE ENTRADA, no formato dd/mm/aaaa hh:mm. SKUs que entram na mesma planilha recebem a mesma data e hora.
-- Cada lote novo recebe uma cor de fundo diferente (o lote de 06/10/2026 22:35 é azul claro, linhas 163 a 377).
+- Cada lote novo recebe uma cor de fundo diferente (o lote de 06/10/2026 22:35 é azul claro, linhas 163 a 377; o de 07/10/2026 13:42 é verde claro, linhas 378 a 867).
 
 ### Aba PROMOÇÕES TIKTOK
 
@@ -125,3 +125,10 @@ Fica dentro da tabela "TABELA TIKTOKSHOP_2".
   - 215 SKUs novos na BASE (linhas 163 a 377, fundo azul).
   - 81 já estavam no CONTROLE. Os outros 134 foram criados (linhas 436 a 569, abaixo da faixa amarela 435); 44 deles são kits com custo pela composição.
   - Promoção e Excel só com os 215 novos (PROMOÇÕES, linhas 163 a 377).
+- **07/10/2026 13:42 (3ª carga):**
+  - 490 SKUs novos na BASE (linhas 378 a 867, fundo verde claro).
+  - 55 já estavam no CONTROLE. Os outros 430 foram criados (linhas 571 a 1000, abaixo da faixa amarela 570). Cinco SKUs Bling têm dois anúncios no TikTok (22786, 22596, 22359, 21625, 21622).
+  - 411 no menor canal, 11 sem referência (15%), 4 subidos para 10%.
+  - 19718, 19719 e 23645 (XC702 Prata, venda igual ao cheio) foram para R$ 1.279,90 (20%). 21770 foi para R$ 49,90 (Shopee acima do cheio de R$ 50).
+  - 91 SKUs inativos no Bling, sem fornecedor (Shimano RC102, RC502, XC702 e RC903), usaram o custo do cadastro.
+  - Promoção e Excel só com os 490 novos (PROMOÇÕES, linhas 378 a 867).
