@@ -53,7 +53,8 @@ Fica dentro da tabela "TABELA TIKTOKSHOP_2".
 | AA | Preço Shopee (ref) |
 
 - Linhas laranja são divisórias.
-- A linha amarela 414 separa os 20 produtos criados em 06/10/2026.
+- Faixas amarelas separam os lotes de produtos criados: linha 414 (20 produtos de 06/10/2026 14:15) e linha 435 (134 produtos do lote 06/10/2026 22:35, linhas 436 a 569).
+- Kits (ex.: "Par de pneus"): a coluna OBS (T) registra a composição usada no custo.
 - Cores da margem (col. M): vermelho abaixo de 10%, amarelo de 10% a 15%, verde a partir de 15%.
 
 ### Aba BASE PRODUTOS TIKTOK
@@ -61,7 +62,8 @@ Fica dentro da tabela "TABELA TIKTOKSHOP_2".
 - É uma cópia do arquivo `all_information_template` do TikTok Seller Center, sem descrição, quantidade e colunas de imagem.
 - A = ID do produto, G = ID do SKU, K = SKU do vendedor (= SKU Bling). Os três ficam em texto, porque os IDs têm 19 dígitos.
 - U = linha no CONTROLE. A fórmula compara com `VALUE()`, porque o SKU pode vir com zero à esquerda.
-- V = DATA DE ENTRADA, no formato dd/mm/aaaa.
+- V = DATA E HORA DE ENTRADA, no formato dd/mm/aaaa hh:mm. SKUs que entram na mesma planilha recebem a mesma data e hora.
+- Cada lote novo recebe uma cor de fundo diferente (o lote de 06/10/2026 22:35 é azul claro, linhas 163 a 377).
 
 ### Aba PROMOÇÕES TIKTOK
 
@@ -69,12 +71,13 @@ Fica dentro da tabela "TABELA TIKTOKSHOP_2".
 - A = Product_id, B = SKU_id, C = Preço da oferta em texto com **ponto** (ex.: `35.90`).
 - D e E ficam vazias, só com o cabeçalho.
 - Sempre **valores colados, nunca fórmula**.
-- As colunas G a M são só conferência. A coluna N é a DATA DE ENTRADA.
+- As colunas G a M são só conferência. A coluna N é a DATA E HORA DE ENTRADA, igual à da BASE.
 - O Excel enviado ao usuário tem apenas A a E, montado sobre o modelo original.
 
 ## Regras de preço
 
 - **Custo:** fornecedor **padrão** no Bling (`listProductSuppliers`, `padrao=true`).
+- **Kits (composição, formato "E"):** o custo do kit no Bling vem zerado. Use a soma dos componentes (quantidade × custo do fornecedor padrão de cada um) e anote a composição na coluna OBS.
 - **Preço cheio:** preço de venda do Bling (`listProducts` → `preco`). É igual ao preço de varejo do TikTok.
 - **Preço de venda:** igual ao **menor** preço entre Shopee e Mercado Livre.
   - Shopee: aba Regra Especial. Lojas Avelar 14%; Caloi, Colli, Athor e Tanke 12% + R$12. Para produtos Tanke, usar o menor entre Avelar e a loja Tanke.
@@ -91,7 +94,8 @@ Fica dentro da tabela "TABELA TIKTOKSHOP_2".
   - frete 6% (teto R$50);
   - imposto 7,3%.
   - Margem = 1 − (custo + taxas + imposto + frete) / preço.
-- **Promoção:** a oferta precisa ser **menor** que o preço original. Se o preço de venda for igual ao cheio, o produto precisa de ajuste de preço.
+- **Promoção:** a oferta precisa ser **menor** que o preço original. Se o preço de venda for igual ao cheio, ajuste para margem de 20% (aplicado em 9301, 22309 e 20444).
+- **Limite do Bling:** a API tem cota diária (zera à meia-noite) e limite por segundo. Consulte em lotes, com pausas.
 
 ## Processo quando chegar uma nova planilha de produtos do TikTok
 
@@ -117,3 +121,7 @@ Fica dentro da tabela "TABELA TIKTOKSHOP_2".
   - 20 SKUs que não estavam no CONTROLE foram criados (linhas 415 a 434).
   - Promoção gerada com os 161 SKUs.
   - SKU 9301 ajustado para R$ 35,90 (20% de margem).
+- **06/10/2026 22:35 (2ª carga):**
+  - 215 SKUs novos na BASE (linhas 163 a 377, fundo azul).
+  - 81 já estavam no CONTROLE. Os outros 134 foram criados (linhas 436 a 569, abaixo da faixa amarela 435); 44 deles são kits com custo pela composição.
+  - Promoção e Excel só com os 215 novos (PROMOÇÕES, linhas 163 a 377).
