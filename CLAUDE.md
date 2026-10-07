@@ -53,7 +53,7 @@ Fica dentro da tabela "TABELA TIKTOKSHOP_2".
 | AA | Preço Shopee (ref) |
 
 - Linhas laranja são divisórias.
-- Faixas amarelas separam os lotes de produtos criados: linha 414 (20 produtos de 06/10/2026 14:15), linha 435 (134 produtos do lote 06/10/2026 22:35, linhas 436 a 569) e linha 570 (430 produtos do lote 07/10/2026 13:42, linhas 571 a 1000).
+- Faixas amarelas separam os lotes de produtos criados: linha 414 (20 produtos de 06/10/2026 14:15), linha 435 (134 produtos do lote 06/10/2026 22:35, linhas 436 a 569) linha 570 (430 produtos do lote 07/10/2026 13:42, linhas 571 a 1000) e linha 1001 (187 produtos do lote 07/10/2026 18:44, linhas 1002 a 1188).
 - Kits (ex.: "Par de pneus"): a coluna OBS (T) registra a composição usada no custo.
 - Cores da margem (col. M): vermelho abaixo de 10%, amarelo de 10% a 15%, verde a partir de 15%.
 
@@ -63,7 +63,7 @@ Fica dentro da tabela "TABELA TIKTOKSHOP_2".
 - A = ID do produto, G = ID do SKU, K = SKU do vendedor (= SKU Bling). Os três ficam em texto, porque os IDs têm 19 dígitos.
 - U = linha no CONTROLE. A fórmula compara com `VALUE()`, porque o SKU pode vir com zero à esquerda.
 - V = DATA E HORA DE ENTRADA, no formato dd/mm/aaaa hh:mm. SKUs que entram na mesma planilha recebem a mesma data e hora.
-- Cada lote novo recebe uma cor de fundo diferente (o lote de 06/10/2026 22:35 é azul claro, linhas 163 a 377; o de 07/10/2026 13:42 é verde claro, linhas 378 a 867).
+- Cada lote novo recebe uma cor de fundo diferente (o lote de 06/10/2026 22:35 é azul claro, linhas 163 a 377; o de 07/10/2026 13:42 é verde claro, linhas 378 a 867; o de 07/10/2026 18:44 é lilás, linhas 868 a 1107).
 
 ### Aba PROMOÇÕES TIKTOK
 
@@ -94,7 +94,7 @@ Fica dentro da tabela "TABELA TIKTOKSHOP_2".
   - frete 6% (teto R$50);
   - imposto 7,3%.
   - Margem = 1 − (custo + taxas + imposto + frete) / preço.
-- **Promoção:** a oferta precisa ser **menor** que o preço original. Se o preço de venda for igual ao cheio, ajuste para margem de 20% (aplicado em 9301, 22309 e 20444).
+- **Promoção:** a oferta precisa ser **menor** que o preço original. Se nem no preço cheio a margem chega a 10%, o SKU fica fora da promoção (ex.: 12022). Se o preço de venda for igual ao cheio, ajuste para margem de 20% (aplicado em 9301, 22309 e 20444).
 - **Limite do Bling:** a API tem cota diária (zera à meia-noite) e limite por segundo. Consulte em lotes, com pausas.
 
 ## Processo quando chegar uma nova planilha de produtos do TikTok
@@ -132,3 +132,9 @@ Fica dentro da tabela "TABELA TIKTOKSHOP_2".
   - 19718, 19719 e 23645 (XC702 Prata, venda igual ao cheio) foram para R$ 1.279,90 (20%). 21770 foi para R$ 49,90 (Shopee acima do cheio de R$ 50).
   - 91 SKUs inativos no Bling, sem fornecedor (Shimano RC102, RC502, XC702 e RC903), usaram o custo do cadastro.
   - Promoção e Excel só com os 490 novos (PROMOÇÕES, linhas 378 a 867).
+- **07/10/2026 18:44 (4ª carga, exportação com todos os ativos, 1101 SKUs):**
+  - 240 SKUs novos na BASE (linhas 868 a 1107, fundo lilás). Os 5 anúncios duplicados da 3ª carga saíram do TikTok.
+  - 51 já estavam no CONTROLE. Os outros 187 foram criados (linhas 1002 a 1188, abaixo da faixa amarela 1001).
+  - 126 no menor canal, 44 subidos para 10%, 16 sem referência (15%). 22491 foi para R$ 31,90 (venda igual ao cheio, 20%).
+  - Fora da promoção: 16859 (não existe no Bling) e 12022 (margem de 7,9% até no preço cheio).
+  - Promoção e Excel com 238 SKUs (PROMOÇÕES, linhas 868 a 1107).
