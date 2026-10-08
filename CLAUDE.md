@@ -53,7 +53,7 @@ Fica dentro da tabela "TABELA TIKTOKSHOP_2".
 | AA | Preço Shopee (ref) |
 
 - Linhas laranja são divisórias.
-- Faixas amarelas separam os lotes de produtos criados: linha 414 (20 produtos de 06/10/2026 14:15), linha 435 (134 produtos do lote 06/10/2026 22:35, linhas 436 a 569) linha 570 (430 produtos do lote 07/10/2026 13:42, linhas 571 a 1000) e linha 1001 (188 produtos do lote 07/10/2026 18:44, linhas 1002 a 1189).
+- Faixas amarelas separam os lotes de produtos criados: linha 414 (20 produtos de 06/10/2026 14:15), linha 435 (134 produtos do lote 06/10/2026 22:35, linhas 436 a 569) linha 570 (430 produtos do lote 07/10/2026 13:42, linhas 571 a 1000) linha 1001 (188 produtos do lote 07/10/2026 18:44, linhas 1002 a 1189) e linha 1190 (12 produtos do lote 07/10/2026 23:39, linhas 1191 a 1202). A tabela vai até a linha 1281: expanda antes de um lote grande.
 - Kits (ex.: "Par de pneus"): a coluna OBS (T) registra a composição usada no custo.
 - Cores da margem (col. M): vermelho abaixo de 10%, amarelo de 10% a 15%, verde a partir de 15%.
 
@@ -63,7 +63,7 @@ Fica dentro da tabela "TABELA TIKTOKSHOP_2".
 - A = ID do produto, G = ID do SKU, K = SKU do vendedor (= SKU Bling). Os três ficam em texto, porque os IDs têm 19 dígitos.
 - U = linha no CONTROLE. A fórmula compara com `VALUE()`, porque o SKU pode vir com zero à esquerda.
 - V = DATA E HORA DE ENTRADA, no formato dd/mm/aaaa hh:mm. SKUs que entram na mesma planilha recebem a mesma data e hora.
-- Cada lote novo recebe uma cor de fundo diferente (o lote de 06/10/2026 22:35 é azul claro, linhas 163 a 377; o de 07/10/2026 13:42 é verde claro, linhas 378 a 867; o de 07/10/2026 18:44 é lilás, linhas 868 a 1107).
+- Cada lote novo recebe uma cor de fundo diferente (o lote de 06/10/2026 22:35 é azul claro, linhas 163 a 377; o de 07/10/2026 13:42 é verde claro, linhas 378 a 867; o de 07/10/2026 18:44 é lilás, linhas 868 a 1107; o de 07/10/2026 23:39 é pêssego, linhas 1108 a 1131).
 
 ### Aba PROMOÇÕES TIKTOK
 
@@ -139,3 +139,8 @@ Fica dentro da tabela "TABELA TIKTOKSHOP_2".
   - 16859 não voltou na consulta em lote da API, mas existe no Bling: foi criado depois (linha 1189, R$ 224,90). Se um SKU não aparecer, confirme buscando só ele.
   - Fora da promoção: 12022 (margem de 7,9% até no preço cheio).
   - Promoção e Excel com 239 SKUs (PROMOÇÕES, linhas 868 a 1107).
+- **07/10/2026 23:39 (5ª carga, 1125 SKUs ativos):**
+  - 24 SKUs novos na BASE (linhas 1108 a 1131, fundo pêssego).
+  - 12 já estavam no CONTROLE. Os outros 12 foram criados (linhas 1191 a 1202, abaixo da faixa amarela 1190).
+  - 9 no menor canal, 2 sem referência (15%), 1 subido para 10% (22005, Cinta H10 Red: Shopee R$ 329,90 abaixo do custo).
+  - Promoção e Excel com os 24 novos (PROMOÇÕES, linhas 1108 a 1131).
