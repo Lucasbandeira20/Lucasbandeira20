@@ -18,7 +18,8 @@ Fonte principal das regras: aba **REGRAS E PROCESSO TIKTOK** da planilha abaixo.
 | REGRAS E PROCESSO TIKTOK | 738877884 | Regras e histórico |
 | Regra Especial Shopee AGO2026 | 1761605422 | Referência principal de preço Shopee |
 | CAMPANHAS TIKTOK | 1765579766 | Seleção de produtos para campanhas com cupom (análise, não altera o CONTROLE) |
-| ANÁLISE MARGEM VENDAS TIKTOK | 1935682352 | Margem real das vendas (a definir) |
+| ANÁLISE MARGEM VENDAS TIKTOK | 1935682352 | Margem real de cada venda × CONTROLE |
+| CONCILIAÇÃO FINANCEIRA TIKTOK | 2026100801 | Resumo, transferências e repasse pedido a pedido |
 
 ### Aba CONTROLE ANÚNCIOS TIKTOKSHOP 03.10
 
@@ -86,6 +87,25 @@ Fica dentro da tabela "TABELA TIKTOKSHOP_2".
 - **Inscrição na campanha:** use o arquivo que o TikTok gera no painel (`..._batch_campaign_template_*.xlsx`), **com o mesmo nome e o mesmo formato**. Ele vem com todos os SKUs ativos e com o preço sugerido (preço atual − R$ 0,50) nas colunas de cada campanha. Apague as linhas que não entram e troque só os preços das colunas de campanha (texto com ponto). Não mexa no resto. Feito em 08/10/2026: 32 SKUs nas duas campanhas 10.10 (Flash Sale e Monthly Sale).
 - Preço hoje e custo são cópia do CONTROLE em 08/10/2026. Col. O = linha no CONTROLE.
 
+### Aba ANÁLISE MARGEM VENDAS TIKTOK
+
+- Uma linha por pedido (enviados + a enviar), em ordem de data. Dados colados dos relatórios do TikTok; o resto é fórmula.
+- A data | B pedido (texto) | C status | D situação financeira | E produto | F SKU | G qtd | H custo (fórmula, CONTROLE col. E) | I preço cheio | J desconto loja | K **valor de venda** (= I − J) | L desconto TikTok (pago pela plataforma, não entra na margem) | M pago pelo cliente | N comissão | O frete SFP 6% | P taxa por item | Q afiliados | R outras taxas | S imposto 7,3% | T custo produto | U custo total | V repasse TikTok | W **margem real** | X lucro | Y linha no CONTROLE | Z preço CONTROLE | AA margem CONTROLE | AB diferença | AC conferência (OK se ±0,5 p.p.) | AD motivo.
+- Cores da margem (W e AA) iguais às do CONTROLE.
+
+### Aba CONCILIAÇÃO FINANCEIRA TIKTOK
+
+- Linhas 4 a 21: resumo das vendas (fórmulas sobre a ANÁLISE). Linhas 23 a 31: onde está o dinheiro (transferido, a receber, em devolução, sem extrato).
+- Linhas 33 a 36: transferências do TikTok (aba Pagamentos do income) × soma dos pedidos do pagamento. Col. G = caixinha para conferir no extrato do banco.
+- Linha 39 em diante: pedido a pedido. L = repasse esperado pela regra do CONTROLE; M = repasse do TikTok (real ou estimado); N = diferença. Inclui os pedidos cancelados que aparecem zerados nos extratos.
+
+### Relatórios do TikTok usados
+
+- **income (Detalhes do pedido / Extratos / Pagamentos):** o que já foi liquidado e transferido. O repasse é diário, no fim do dia, para a conta 54.050.***/****-52.
+- **onhold:** o que ainda vai entrar (aguardando entrega, ou entregue + 7 dias). Os valores são estimados.
+- **Todos_pedido (OrderSKUList):** status de todos os pedidos. Não traz taxas. Tem dados pessoais do cliente: não copiar para a planilha.
+- Taxas conferidas em 08/10/2026: comissão 10% (< R$50) ou 6%, SFP 6% e taxa por item R$4 ou R$6 por unidade, iguais à regra do CONTROLE. ICMS e impostos vieram zerados.
+
 ## Regras de preço
 
 - **Custo:** fornecedor **padrão** no Bling (`listProductSuppliers`, `padrao=true`).
@@ -133,7 +153,9 @@ Use a skill `/tiktok-novos-produtos` (`.claude/skills/tiktok-novos-produtos/`): 
 
 - Regra Especial Shopee tem 9 produtos duplicados com preços diferentes (ex.: Coroa SLX M675 24d R$ 89,00 × R$ 39,90). O usuário precisa dizer qual linha vale. Até lá, vale a primeira linha.
 - Kit 3 Pneu Chaoyang Phantom Wet (18280) aparece com estoque de 4.931 no Bling, o que parece erro de cadastro. Precisa ser conferido.
-- Próximas frentes: ANÁLISE DE MARGEM DA VENDA (aba ANÁLISE MARGEM VENDAS TIKTOK) e CONCILIAÇÃO FINANCEIRA. Precisam do relatório de pedidos e do de liquidação/repasse do TikTok.
+- Bicicletas Nathor 23620 e 23622 (pedidos de 08/10) vieram no onhold com taxa extra de R$ 11,85 e R$ 10,53 sem detalhamento. Conferir quando liquidarem.
+- Margem: comissão de afiliado (até 8,5%) não está no CONTROLE e derrubou várias vendas para baixo de 10%. O usuário precisa decidir se o CONTROLE passa a considerar afiliados.
+- Atualizar a ANÁLISE e a CONCILIAÇÃO a cada novo download dos relatórios (income, onhold e pedidos).
 
 ## Histórico
 
@@ -165,3 +187,7 @@ Use a skill `/tiktok-novos-produtos` (`.claude/skills/tiktok-novos-produtos/`): 
   - 12 já estavam no CONTROLE. Os outros 12 foram criados (linhas 1191 a 1202, abaixo da faixa amarela 1190).
   - 9 no menor canal, 2 sem referência (15%), 1 subido para 10% (22005, Cinta H10 Red: Shopee R$ 329,90 abaixo do custo).
   - Promoção e Excel com os 24 novos (PROMOÇÕES, linhas 1108 a 1131).
+- **08/10/2026 11:00 (análise de margem e conciliação):**
+  - 138 vendas (116 enviadas + 22 a enviar) nas abas ANÁLISE MARGEM VENDAS TIKTOK e CONCILIAÇÃO FINANCEIRA TIKTOK (nova).
+  - Margem média real de 13,1%. 44 vendas ficaram abaixo de 10% (preço antigo antes do ajuste de 06/10, afiliados e desconto extra de R$ 5). 45 vendas conforme o CONTROLE.
+  - Transferências de 07/10 (R$ 16,08) e 08/10 (R$ 691,63) bateram com a soma dos pedidos. A receber: R$ 9.975,48.
