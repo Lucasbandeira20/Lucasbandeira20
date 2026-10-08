@@ -129,6 +129,12 @@ Use a skill `/tiktok-novos-produtos` (`.claude/skills/tiktok-novos-produtos/`): 
    - IDs com 19 dígitos, em texto.
 6. Registre o que foi feito no HISTÓRICO da aba REGRAS E PROCESSO TIKTOK.
 
+## Pendências (em aberto)
+
+- Regra Especial Shopee tem 9 produtos duplicados com preços diferentes (ex.: Coroa SLX M675 24d R$ 89,00 × R$ 39,90). O usuário precisa dizer qual linha vale. Até lá, vale a primeira linha.
+- Kit 3 Pneu Chaoyang Phantom Wet (18280) aparece com estoque de 4.931 no Bling, o que parece erro de cadastro. Precisa ser conferido.
+- Próximas frentes: ANÁLISE DE MARGEM DA VENDA (aba ANÁLISE MARGEM VENDAS TIKTOK) e CONCILIAÇÃO FINANCEIRA. Precisam do relatório de pedidos e do de liquidação/repasse do TikTok.
+
 ## Histórico
 
 - **06/10/2026:**
