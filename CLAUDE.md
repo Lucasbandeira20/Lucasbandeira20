@@ -20,6 +20,7 @@ Fonte principal das regras: aba **REGRAS E PROCESSO TIKTOK** da planilha abaixo.
 | CAMPANHAS TIKTOK | 1765579766 | Seleção de produtos para campanhas com cupom (análise, não altera o CONTROLE) |
 | ANÁLISE MARGEM VENDAS TIKTOK | 1935682352 | Margem real de cada venda × CONTROLE |
 | CONCILIAÇÃO FINANCEIRA TIKTOK | 2026100801 | Resumo, transferências e repasse pedido a pedido |
+| GMV MAX TIKTOK | 2026100802 | Margem dos produtos da campanha GMV Max (análise, não altera o CONTROLE) |
 
 ### Aba CONTROLE ANÚNCIOS TIKTOKSHOP 03.10
 
@@ -98,6 +99,13 @@ Fica dentro da tabela "TABELA TIKTOKSHOP_2".
 - Linhas 4 a 21: resumo das vendas (fórmulas sobre a ANÁLISE). Linhas 23 a 31: onde está o dinheiro (transferido, a receber, em devolução, sem extrato).
 - Linhas 33 a 36: transferências do TikTok (aba Pagamentos do income) × soma dos pedidos do pagamento. Col. G = caixinha para conferir no extrato do banco.
 - Linha 39 em diante: pedido a pedido. L = repasse esperado pela regra do CONTROLE; M = repasse do TikTok (real ou estimado); N = diferença. Inclui os pedidos cancelados que aparecem zerados nos extratos.
+
+### Aba GMV MAX TIKTOK
+
+- Só análise. B2 = ROI do anúncio (o usuário trabalha **sempre com ROI 20**), B3 = custo GMV Max = 1 ÷ ROI (5% da venda), B4 = margem mínima (10%).
+- M7:N = lista de IDs de produto da campanha GMV Max (enviada pelo usuário em 08/10/2026). A:E puxam da BASE todos os SKUs desses produtos (FILTER).
+- F e G = preço e margem do CONTROLE. H = custo GMV Max. I = margem com GMV Max (G − 5 p.p.). J = preço mínimo para 10% com GMV Max. K = situação.
+- Com ROI 20, o produto precisa de pelo menos 15% de margem no CONTROLE para ficar no GMV Max. Em 08/10/2026, 47 SKUs ficaram abaixo de 10% (bicicletas Nathor, Caloi Power Rex, Athor Brave Aro 20 e 22 pneus).
 
 ### Relatórios do TikTok usados
 
