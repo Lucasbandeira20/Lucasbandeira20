@@ -99,6 +99,9 @@ Fica dentro da tabela "TABELA TIKTOKSHOP_2".
 
 ## Processo quando chegar uma nova planilha de produtos do TikTok
 
+Use a skill `/tiktok-novos-produtos` (`.claude/skills/tiktok-novos-produtos/`): ela tem o roteiro passo a passo e os scripts (comparação, referências, preços, payloads e Excel). Resumo:
+
+
 1. Compare com a BASE PRODUTOS TIKTOK pelo ID do SKU e identifique só os SKUs novos.
 2. Adicione os novos na BASE com a DATA DE ENTRADA do dia (coluna V). Na PROMOÇÃO, a data vai na coluna N.
 3. Para cada SKU novo, verifique se já está no CONTROLE (pelo SKU Bling). Se não estiver:
