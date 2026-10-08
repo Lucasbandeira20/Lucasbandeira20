@@ -80,9 +80,9 @@ Fica dentro da tabela "TABELA TIKTOKSHOP_2".
 
 - Só análise. **Nunca altere o CONTROLE** por causa de campanha: os preços oficiais ficam lá.
 - C2 = desconto da campanha (hoje 5%). Preço campanha = ROUNDDOWN(preço hoje × (1 − C2); 2). As margens são fórmulas, iguais às do CONTROLE.
-- Linhas 6 a 69: 50 produtos (64 SKUs) com maior ticket e margem ≥ 10% depois do desconto. Preferência: pneus, bikes infantis e correntes Tanke.
-- Linhas 70 a 84: 15 pares/kits de pneus Chaoyang adicionados a pedido (ticket mais alto, margem ≥ 10% na campanha, com estoque no TikTok).
-- Linhas 89 a 108: reserva com outros produtos de ticket alto (margem ≥ 12% na campanha).
+- **Estoque vem antes da análise.** Para qualquer lista de campanha, consulte primeiro o estoque no Bling (`listProducts` com `codigos`, field `estoque` → `saldoVirtualTotal`). SKU com estoque 0 não entra na campanha. Ordene a lista pelo **maior estoque**.
+- Pares e kits (formato "E") têm estoque virtual, calculado pelos pneus avulsos. Pares que usam o mesmo pneu dividem esse estoque.
+- Lista atual (escolhida pelo usuário em 08/10/2026): linhas 6 a 39, com 34 SKUs ordenados por estoque. Linhas 41 a 44: fora da campanha por estoque 0 (004460 e 22812). Col. P = estoque Bling.
 - Preço hoje e custo são cópia do CONTROLE em 08/10/2026. Col. O = linha no CONTROLE.
 
 ## Regras de preço
