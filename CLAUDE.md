@@ -105,6 +105,7 @@ Fica dentro da tabela "TABELA TIKTOKSHOP_2".
 - **onhold:** o que ainda vai entrar (aguardando entrega, ou entregue + 7 dias). Os valores são estimados.
 - **Todos_pedido (OrderSKUList):** status de todos os pedidos. Não traz taxas. Tem dados pessoais do cliente: não copiar para a planilha.
 - Taxas conferidas em 08/10/2026: comissão 10% (< R$50) ou 6%, SFP 6% e taxa por item R$4 ou R$6 por unidade, iguais à regra do CONTROLE. ICMS e impostos vieram zerados.
+- O onhold não tem as colunas "Taxa por item vendido" e "Taxa de anúncio de GMV Max": elas só aparecem somadas em "Taxas e impostos". A diferença entre esse total e o detalhe é o GMV Max (confirmado no painel em 08/10/2026). Na ANÁLISE ela vai na coluna R.
 
 ## Regras de preço
 
@@ -153,7 +154,7 @@ Use a skill `/tiktok-novos-produtos` (`.claude/skills/tiktok-novos-produtos/`): 
 
 - Regra Especial Shopee tem 9 produtos duplicados com preços diferentes (ex.: Coroa SLX M675 24d R$ 89,00 × R$ 39,90). O usuário precisa dizer qual linha vale. Até lá, vale a primeira linha.
 - Kit 3 Pneu Chaoyang Phantom Wet (18280) aparece com estoque de 4.931 no Bling, o que parece erro de cadastro. Precisa ser conferido.
-- Bicicletas Nathor 23620 e 23622 (pedidos de 08/10) vieram no onhold com taxa extra de R$ 11,85 e R$ 10,53 sem detalhamento. Conferir quando liquidarem.
+- **GMV Max (anúncios):** cobrança por pedido = (pagamento do cliente + desconto do TikTok) ÷ ROI do anúncio. Apareceu em 08/10 nas bicicletas 23620 (R$ 11,85, ROI 17,5) e 23622 (R$ 10,53, ROI 19,7), cerca de 5% a 5,7% da venda. Não está no CONTROLE. O usuário precisa decidir se o CONTROLE considera esse custo ou se tira do GMV Max os produtos com margem perto de 10%.
 - Margem: comissão de afiliado (até 8,5%) não está no CONTROLE e derrubou várias vendas para baixo de 10%. O usuário precisa decidir se o CONTROLE passa a considerar afiliados.
 - Atualizar a ANÁLISE e a CONCILIAÇÃO a cada novo download dos relatórios (income, onhold e pedidos).
 
