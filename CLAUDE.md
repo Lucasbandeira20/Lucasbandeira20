@@ -81,7 +81,8 @@ Fica dentro da tabela "TABELA TIKTOKSHOP_2".
 - Só análise. **Nunca altere o CONTROLE** por causa de campanha: os preços oficiais ficam lá.
 - C2 = desconto da campanha (hoje 5%). Preço campanha = ROUNDDOWN(preço hoje × (1 − C2); 2). As margens são fórmulas, iguais às do CONTROLE.
 - Linhas 6 a 69: 50 produtos (64 SKUs) com maior ticket e margem ≥ 10% depois do desconto. Preferência: pneus, bikes infantis e correntes Tanke.
-- Linhas 74 a 93: reserva com outros produtos de ticket alto (margem ≥ 12% na campanha).
+- Linhas 70 a 84: 15 pares/kits de pneus Chaoyang adicionados a pedido (ticket mais alto, margem ≥ 10% na campanha, com estoque no TikTok).
+- Linhas 89 a 108: reserva com outros produtos de ticket alto (margem ≥ 12% na campanha).
 - Preço hoje e custo são cópia do CONTROLE em 08/10/2026. Col. O = linha no CONTROLE.
 
 ## Regras de preço
