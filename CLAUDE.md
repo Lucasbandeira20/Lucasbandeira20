@@ -17,6 +17,8 @@ Fonte principal das regras: aba **REGRAS E PROCESSO TIKTOK** da planilha abaixo.
 | PROMOÇÕES TIKTOK | 293760526 | Arquivo de upload de promoção |
 | REGRAS E PROCESSO TIKTOK | 738877884 | Regras e histórico |
 | Regra Especial Shopee AGO2026 | 1761605422 | Referência principal de preço Shopee |
+| CAMPANHAS TIKTOK | 1765579766 | Seleção de produtos para campanhas com cupom (análise, não altera o CONTROLE) |
+| ANÁLISE MARGEM VENDAS TIKTOK | 1935682352 | Margem real das vendas (a definir) |
 
 ### Aba CONTROLE ANÚNCIOS TIKTOKSHOP 03.10
 
@@ -73,6 +75,14 @@ Fica dentro da tabela "TABELA TIKTOKSHOP_2".
 - Sempre **valores colados, nunca fórmula**.
 - As colunas G a M são só conferência. A coluna N é a DATA E HORA DE ENTRADA, igual à da BASE.
 - O Excel enviado ao usuário tem apenas A a E, montado sobre o modelo original.
+
+### Aba CAMPANHAS TIKTOK
+
+- Só análise. **Nunca altere o CONTROLE** por causa de campanha: os preços oficiais ficam lá.
+- C2 = desconto da campanha (hoje 5%). Preço campanha = ROUNDDOWN(preço hoje × (1 − C2); 2). As margens são fórmulas, iguais às do CONTROLE.
+- Linhas 6 a 69: 50 produtos (64 SKUs) com maior ticket e margem ≥ 10% depois do desconto. Preferência: pneus, bikes infantis e correntes Tanke.
+- Linhas 74 a 93: reserva com outros produtos de ticket alto (margem ≥ 12% na campanha).
+- Preço hoje e custo são cópia do CONTROLE em 08/10/2026. Col. O = linha no CONTROLE.
 
 ## Regras de preço
 
