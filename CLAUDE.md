@@ -82,7 +82,8 @@ Fica dentro da tabela "TABELA TIKTOKSHOP_2".
 - C2 = desconto da campanha (hoje 5%). Preço campanha = ROUNDDOWN(preço hoje × (1 − C2); 2). As margens são fórmulas, iguais às do CONTROLE.
 - **Estoque vem antes da análise.** Para qualquer lista de campanha, consulte primeiro o estoque no Bling (`listProducts` com `codigos`, field `estoque` → `saldoVirtualTotal`). SKU com estoque 0 não entra na campanha. Ordene a lista pelo **maior estoque**.
 - Pares e kits (formato "E") têm estoque virtual, calculado pelos pneus avulsos. Pares que usam o mesmo pneu dividem esse estoque.
-- Lista atual (escolhida pelo usuário em 08/10/2026): linhas 6 a 37, com 32 SKUs ordenados por estoque (19572 e 19579 retirados a pedido). Linhas 39 a 42: fora da campanha por estoque 0 (004460 e 22812). Col. P = estoque Bling.
+- Lista atual (escolhida pelo usuário em 08/10/2026): linhas 6 a 37, com 32 SKUs ordenados por estoque (19572 e 19579 retirados a pedido). Os SKUs com estoque 0 (004460 e 22812) foram retirados. Col. P = estoque Bling.
+- **Inscrição na campanha:** use o arquivo que o TikTok gera no painel (`..._batch_campaign_template_*.xlsx`), **com o mesmo nome e o mesmo formato**. Ele vem com todos os SKUs ativos e com o preço sugerido (preço atual − R$ 0,50) nas colunas de cada campanha. Apague as linhas que não entram e troque só os preços das colunas de campanha (texto com ponto). Não mexa no resto. Feito em 08/10/2026: 32 SKUs nas duas campanhas 10.10 (Flash Sale e Monthly Sale).
 - Preço hoje e custo são cópia do CONTROLE em 08/10/2026. Col. O = linha no CONTROLE.
 
 ## Regras de preço
