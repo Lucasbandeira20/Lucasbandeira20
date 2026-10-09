@@ -165,3 +165,8 @@ Use a skill `/tiktok-novos-produtos` (`.claude/skills/tiktok-novos-produtos/`): 
   - 12 já estavam no CONTROLE. Os outros 12 foram criados (linhas 1191 a 1202, abaixo da faixa amarela 1190).
   - 9 no menor canal, 2 sem referência (15%), 1 subido para 10% (22005, Cinta H10 Red: Shopee R$ 329,90 abaixo do custo).
   - Promoção e Excel com os 24 novos (PROMOÇÕES, linhas 1108 a 1131).
+- **09/10/2026 17:58 (alteração de preço):**
+  - Sapatilha Shimano SH-MX101 (22 SKUs, 23652 a 23673) passou de R$ 599,90 (20,3%) para R$ 514,90 (10,4% de margem), a pedido do usuário.
+  - Atualizados: CONTROLE L576:L597 (com OBS na coluna T) e PROMOÇÕES C, K e L nas linhas 390 a 411. Não está na CAMPANHAS TIKTOK.
+  - Excel de promoção não foi gerado: o usuário altera direto no TikTok.
+- **Alteração de preço avulsa:** atualize o CONTROLE (L + OBS com data e motivo), a PROMOÇÕES (C em texto com ponto, K e L) e a CAMPANHAS TIKTOK, se o SKU estiver lá. Registre no HISTÓRICO da aba REGRAS e aqui.
