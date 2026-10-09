@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Yoga Morning Club</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;1,200;1,300;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #eeeeee;
+    --ink: #4a4a4a;
+    --ink-soft: #6a6a6a;
+    --line: #5c5c5c;
+    --dark: #14161a;
+  }
+  @page { size: 1920px 1080px; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #888; font-family: 'Poppins', sans-serif; color: var(--ink); }
+  .slide {
+    width: 1920px; height: 1080px; position: relative; overflow: hidden;
+    background: var(--bg); page-break-after: always; break-after: page;
+  }
+  @media screen { .slide { margin: 0 auto 24px; } }
+  .hdr { position: absolute; top: 34px; left: 72px; font-size: 18px; letter-spacing: .02em; color: var(--ink); z-index: 5; }
+  .yr  { position: absolute; top: 38px; right: 72px; font-size: 18px; color: var(--ink); z-index: 5; }
+  .dark .hdr, .dark .yr { color: rgba(255,255,255,.75); }
+  .title { font-style: italic; font-weight: 300; font-size: 104px; line-height: 1.1; color: var(--ink); }
+  .title.xl { font-weight: 300; font-size: 132px; }
+  .title.thin { font-weight: 200; }
+  .sub { font-style: italic; font-weight: 300; font-size: 32px; color: var(--ink-soft); }
+  p.body { font-weight: 300; font-size: 31px; line-height: 1.65; }
+  .box { border: 2px solid var(--line); border-radius: 44px; }
+  .ph { background-size: cover; background-position: center; }
+  .shade::after { content: ""; position: absolute; inset: 0; background: rgba(14,16,20,.6); }
+  .center { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; z-index: 3; }
+  .white { color: #fff !important; }
+  .logos-row { display: flex; align-items: center; gap: 72px; }
+  .porto-slot {
+    border: 2px dashed currentColor; border-radius: 18px; padding: 14px 30px;
+    font-size: 20px; letter-spacing: .14em; font-weight: 500; text-transform: uppercase; opacity: .85;
+  }
+  .strips { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(4, 1fr); }
+  .strips > div { position: relative; }
+  .pill { display: inline-block; border: 2px solid rgba(255,255,255,.85); border-radius: 999px; padding: 12px 34px; font-size: 26px; font-weight: 400; color: #fff; }
+  .tile { border-radius: 32px; background-size: cover; background-position: center; }
+  .cap { font-size: 20px; font-weight: 400; color: var(--ink-soft); letter-spacing: .04em; }
+  /* timeline */
+  .tl { position: absolute; left: 0; right: 0; height: 2px; background: var(--line); }
+  .tl-dot { position: absolute; width: 30px; height: 30px; border-radius: 50%; background: #5f5f5f; transform: translate(-50%, -50%); }
+  .tl-lbl { position: absolute; width: 300px; transform: translateX(-50%); text-align: center; font-style: italic; font-weight: 300; font-size: 27px; line-height: 1.35; color: var(--ink); }
+  .glass { background: rgba(20,24,30,.45); border: 2px solid rgba(255,255,255,.85); border-radius: 64px; color: #fff; padding: 52px 56px; backdrop-filter: blur(2px); }
+  .glass h3 { font-weight: 400; font-size: 36px; text-align: center; margin-bottom: 26px; }
+  .glass ul { list-style: none; }
+  .glass li { font-size: 27px; font-weight: 300; line-height: 1.4; padding-left: 44px; position: relative; margin-bottom: 18px; }
+  .glass li::before { content: "●"; position: absolute; left: 0; font-size: 18px; top: 6px; }
+  .stat { border: 2px solid var(--line); border-radius: 36px; padding: 24px 30px; text-align: center; }
+  .stat b { display: block; font-size: 46px; font-weight: 500; font-style: italic; color: var(--ink); }
+  .stat span { font-size: 22px; font-weight: 300; }
+  ul.dots { list-style: none; }
+  ul.dots li { font-size: 29px; font-weight: 300; line-height: 1.45; padding-left: 44px; position: relative; margin-bottom: 14px; }
+  ul.dots li::before { content: "●"; position: absolute; left: 0; font-size: 18px; top: 8px; color: #5f5f5f; }
+</style>
+</head>
+<body>
+
+<!-- 1. CAPA -->
+<section class="slide dark">
+  <div class="strips">
+    <div class="ph shade" style="background-image:url(img/f02.jpg)"></div>
+    <div class="ph shade" style="background-image:url(img/f22.jpg)"></div>
+    <div class="ph shade" style="background-image:url(img/f17.jpg)"></div>
+    <div class="ph shade" style="background-image:url(img/f04.jpg)"></div>
+  </div>
+  <div class="hdr">TFSPORTS</div><div class="yr">2026</div>
+  <div class="center">
+    <img src="img/tfsports-projetos-branco.png" style="width:420px;margin-bottom:56px">
+    <div class="title xl white">Yoga Morning Club</div>
+    <div class="sub white" style="margin-top:18px;font-size:36px;color:#fff">Uma experiência de movimento, bem-estar e conexão</div>
+    <div style="display:flex;gap:22px;margin-top:56px">
+      <span class="pill">06.12.2026</span><span class="pill">Casa Rosada</span><span class="pill">50 vagas</span>
+    </div>
+  </div>
+  <div class="logos-row white" style="position:absolute;bottom:56px;left:0;right:0;justify-content:center;z-index:4;gap:56px">
+    <img src="img/trackfield.png" style="height:44px">
+    <span class="porto-slot">Logo Porto Seguro</span>
+  </div>
+</section>
+
+<!-- 2. SOBRE O EVENTO -->
+<section class="slide">
+  <div class="hdr">TFSPORTS</div><div class="yr">2026</div>
+  <div style="position:absolute;left:150px;top:150px;width:900px">
+    <div class="title">Sobre o Evento</div>
+    <p class="body" style="margin-top:46px">O <b style="font-weight:600;font-style:italic">Yoga Morning Club</b> nasce da ideia de reunir pessoas que valorizam o bem-estar, a qualidade de vida e as experiências que fazem sentido.</p>
+    <p class="body" style="margin-top:24px">Em um cenário especial como a <b style="font-weight:600;font-style:italic">Casa Rosada</b>, vamos começar o dia com uma prática de yoga, criando um momento de movimento, presença e cuidado consigo mesmo.</p>
+    <p class="body" style="margin-top:24px">Depois da prática, a experiência continua em um ambiente descontraído, com brunch, água de coco, música com DJ e espaço para conversas, encontros e novas conexões.</p>
+  </div>
+  <div class="tile" style="position:absolute;right:150px;top:100px;width:620px;height:880px;border-radius:64px;background-image:url(img/f07.jpg)"></div>
+</section>
+
+<!-- 3. FICHA DO EVENTO -->
+<section class="slide">
+  <div class="hdr">TFSPORTS</div><div class="yr">2026</div>
+  <div class="title" style="position:absolute;left:0;right:0;top:110px;text-align:center">O Evento</div>
+  <div style="position:absolute;left:170px;right:170px;top:280px;display:grid;grid-template-columns:repeat(3,1fr);gap:36px">
+    <div class="box" style="padding:40px 44px"><div class="cap">EVENTO</div><div style="font-size:38px;font-style:italic;margin-top:10px;white-space:nowrap">Yoga Morning Club</div></div>
+    <div class="box" style="padding:40px 44px"><div class="cap">DATA</div><div style="font-size:38px;font-style:italic;margin-top:10px;white-space:nowrap">06/12/2026 · Domingo</div></div>
+    <div class="box" style="padding:40px 44px"><div class="cap">LOCAL</div><div style="font-size:38px;font-style:italic;margin-top:10px;white-space:nowrap">Casa Rosada</div></div>
+    <div class="box" style="padding:40px 44px"><div class="cap">MODALIDADE</div><div style="font-size:38px;font-style:italic;margin-top:10px;white-space:nowrap">Yoga</div></div>
+    <div class="box" style="padding:40px 44px"><div class="cap">NÚMERO DE VAGAS</div><div style="font-size:38px;font-style:italic;margin-top:10px;white-space:nowrap">50 vagas</div></div>
+    <div class="box" style="padding:40px 44px"><div class="cap">PROFESSORA</div><div style="font-size:38px;font-style:italic;margin-top:10px;white-space:nowrap">Thaís Schiavon</div></div>
+  </div>
+  <p class="body" style="position:absolute;left:240px;right:240px;top:800px;text-align:center;font-style:italic;font-size:33px">Uma manhã que reúne movimento, lifestyle e convivência, conectando pessoas e marcas que compartilham o mesmo propósito: valorizar o bem-estar e tornar esse estilo de vida cada vez mais presente no nosso dia a dia.</p>
+</section>
+
+<!-- 4. SEÇÃO: A EXPERIÊNCIA -->
+<section class="slide dark">
+  <div class="strips" style="grid-template-columns:repeat(3,1fr)">
+    <div class="ph shade" style="background-image:url(img/f06.jpg)"></div>
+    <div class="ph shade" style="background-image:url(img/f20.jpg)"></div>
+    <div class="ph shade" style="background-image:url(img/f19.jpg)"></div>
+  </div>
+  <div class="hdr">TFSPORTS</div><div class="yr">2026</div>
+  <div class="center">
+    <div class="title xl white">A Experiência</div>
+    <div class="sub white" style="margin-top:20px;color:#fff">Movimento · Presença · Brunch · Música · Conexões</div>
+  </div>
+</section>
+
+<!-- 5. JORNADA DA MANHÃ -->
+<section class="slide">
+  <div class="hdr">TFSPORTS</div><div class="yr">2026</div>
+  <div style="position:absolute;left:110px;top:100px">
+    <div class="title">A Manhã</div>
+    <div class="sub" style="margin-top:6px">Como a experiência acontece</div>
+  </div>
+  <div style="position:absolute;left:0;right:0;top:470px;height:0">
+    <div class="tl" style="left:150px;right:150px"></div>
+    <div class="tl-dot" style="left:250px"></div>
+    <div class="tl-dot" style="left:605px"></div>
+    <div class="tl-dot" style="left:960px"></div>
+    <div class="tl-dot" style="left:1315px"></div>
+    <div class="tl-dot" style="left:1670px"></div>
+    <div class="tl-lbl" style="left:250px;bottom:36px">Recepção e<br>check-in</div>
+    <div class="tl-lbl" style="left:605px;top:36px">Prática de yoga<br>com Thaís Schiavon</div>
+    <div class="tl-lbl" style="left:960px;bottom:36px">Brunch e<br>água de coco</div>
+    <div class="tl-lbl" style="left:1315px;top:36px">Música<br>com DJ</div>
+    <div class="tl-lbl" style="left:1670px;bottom:36px">Conversas, encontros<br>e novas conexões</div>
+  </div>
+  <div style="position:absolute;left:150px;right:150px;bottom:70px;height:330px;display:grid;grid-template-columns:repeat(3,1fr);gap:36px">
+    <div class="tile" style="background-image:url(img/f21.jpg);background-position:center 62%"></div>
+    <div class="tile" style="background-image:url(img/f20.jpg);background-position:center 60%"></div>
+    <div class="tile" style="background-image:url(img/f08.jpg);background-position:center 55%"></div>
+  </div>
+</section>
+
+<!-- 6. A PROFESSORA -->
+<section class="slide">
+  <div class="hdr">TFSPORTS</div><div class="yr">2026</div>
+  <div style="position:absolute;left:130px;top:110px;width:1000px">
+    <div class="sub">A Professora</div>
+    <div class="title" style="margin-top:4px">Thaís Schiavon</div>
+    <div style="font-size:30px;font-weight:500;margin-top:6px">Yoga Schiavon® · @thais.schiavon</div>
+    <ul class="dots" style="margin-top:44px">
+      <li>Criadora do método <b style="font-weight:600">Hot Sculpt</b>, com metodologia própria</li>
+      <li>Público fiel em Conselheiro Lafaiete, com estúdio no Centro da cidade</li>
+      <li>Mentoria, aulas online e collabs com marcas</li>
+      <li>Experiência em eventos e práticas de yoga ao ar livre</li>
+    </ul>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:46px;width:900px">
+      <div class="stat"><b>8.254</b><span>seguidores</span></div>
+      <div class="stat"><b>1.453</b><span>publicações</span></div>
+      <div class="stat"><b>✓</b><span>perfil verificado</span></div>
+    </div>
+  </div>
+  <div class="tile" style="position:absolute;right:146px;top:100px;width:568px;height:640px;background-image:url(img/thais-perfil.jpg);background-size:100% 100%;box-shadow:0 20px 60px rgba(0,0,0,.12)"></div>
+  <div class="tile" style="position:absolute;right:146px;top:765px;width:568px;height:240px;background-image:url(img/thais-grid.jpg);background-position:center 20%;box-shadow:0 20px 60px rgba(0,0,0,.12)"></div>
+</section>
+
+<!-- 7. MÉTODO HOT SCULPT -->
+<section class="slide">
+  <div class="hdr">TFSPORTS</div><div class="yr">2026</div>
+  <div class="tile" style="position:absolute;left:110px;top:110px;width:520px;height:860px;background-image:url(img/f17.jpg)"></div>
+  <div class="tile" style="position:absolute;left:660px;top:110px;width:520px;height:860px;background-image:url(img/f16.jpg)"></div>
+  <div style="position:absolute;left:1260px;right:110px;top:250px">
+    <div class="sub">Metodologia própria</div>
+    <div class="title" style="font-size:92px">Hot Sculpt</div>
+    <p class="body" style="margin-top:34px">Aulas que unem yoga, força e presença, com acessórios como halteres, caneleiras e blocos.</p>
+    <p class="body" style="margin-top:22px">Na imagem ao lado, uma prática noturna realizada na própria <b style="font-weight:600;font-style:italic">Casa Rosada</b>.</p>
+  </div>
+</section>
+
+<!-- 8. EXPERIÊNCIAS ANTERIORES -->
+<section class="slide">
+  <div class="hdr">TFSPORTS</div><div class="yr">2026</div>
+  <div style="position:absolute;left:110px;top:96px">
+    <div class="title">Experiências que inspiram</div>
+    <div class="sub" style="margin-top:4px">Registros de práticas e eventos de yoga ao ar livre</div>
+  </div>
+  <div style="position:absolute;left:110px;right:110px;top:350px;bottom:80px;display:grid;grid-template-columns:repeat(5,1fr);gap:28px">
+    <div class="tile" style="background-image:url(img/f01.jpg)"></div>
+    <div class="tile" style="background-image:url(img/f02.jpg)"></div>
+    <div class="tile" style="background-image:url(img/f03.jpg)"></div>
+    <div class="tile" style="background-image:url(img/f04.jpg)"></div>
+    <div class="tile" style="background-image:url(img/f05.jpg)"></div>
+  </div>
+</section>
+
+<!-- 9. SEÇÃO: O LOCAL -->
+<section class="slide dark">
+  <div class="ph shade" style="position:absolute;inset:0;background-image:url(img/f14.jpg)"></div>
+  <div class="hdr">TFSPORTS</div><div class="yr">2026</div>
+  <div class="center">
+    <div class="sub white" style="color:#fff">O Local</div>
+    <div class="title xl white">Casa Rosada</div>
+  </div>
+</section>
+
+<!-- 10. CASA ROSADA -->
+<section class="slide">
+  <div class="hdr">TFSPORTS</div><div class="yr">2026</div>
+  <div style="position:absolute;left:110px;top:110px;width:560px">
+    <div class="title" style="font-size:92px">Casa Rosada</div>
+    <div class="sub" style="margin-top:4px">Hotel Boutique</div>
+    <p class="body" style="margin-top:40px">Um cenário cercado de natureza, com jardins, deck, espaços de bem-estar e arquitetura que transformam a prática em experiência.</p>
+  </div>
+  <div style="position:absolute;left:730px;right:110px;top:110px;bottom:80px;display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:1fr 1fr;gap:24px">
+    <div class="tile" style="grid-column:1 / span 2;background-image:url(img/f13.jpg)"></div>
+    <div class="tile" style="background-image:url(img/f10.jpg)"></div>
+    <div class="tile" style="background-image:url(img/f08.jpg);background-position:center 45%"></div>
+    <div class="tile" style="grid-column:1 / span 2;background-image:url(img/f15.jpg)"></div>
+    <div class="tile" style="background-image:url(img/f18.jpg)"></div>
+    <div class="tile" style="background-image:url(img/f20.jpg)"></div>
+  </div>
+</section>
+
+<!-- 11. YOGA NA CASA ROSADA -->
+<section class="slide">
+  <div class="hdr">TFSPORTS</div><div class="yr">2026</div>
+  <div style="position:absolute;left:110px;right:110px;top:96px;bottom:80px;display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:1fr 1fr;gap:24px">
+    <div style="display:flex;flex-direction:column;justify-content:center;padding-right:10px">
+      <div class="title" style="font-size:70px">Yoga na Casa Rosada</div>
+      <p class="body" style="margin-top:22px;font-size:26px">Bambuzal, gramado e deck: cenários que já recebem práticas de yoga.</p>
+    </div>
+    <div class="tile" style="background-image:url(img/f06.jpg);background-position:center 40%"></div>
+    <div class="tile" style="background-image:url(img/f19.jpg);background-position:center 45%"></div>
+    <div class="tile" style="background-image:url(img/f22.jpg);background-position:center 45%"></div>
+    <div class="tile" style="background-image:url(img/f21.jpg);background-position:center 40%"></div>
+    <div class="tile" style="background-image:url(img/f09.jpg);background-position:center 65%"></div>
+    <div class="tile" style="background-image:url(img/f11.jpg);background-position:center 70%"></div>
+    <div class="tile" style="background-image:url(img/f12.jpg);background-position:center 50%"></div>
+  </div>
+</section>
+
+<!-- 12. PARCERIA -->
+<section class="slide dark">
+  <div class="ph" style="position:absolute;inset:-30px;background-image:url(img/f12.jpg);filter:blur(6px)"></div>
+  <div style="position:absolute;inset:0;background:rgba(14,16,20,.55)"></div>
+  <div class="hdr">TFSPORTS</div><div class="yr">2026</div>
+  <div class="title white" style="position:absolute;left:0;right:0;top:80px;text-align:center;font-size:92px">Parceria</div>
+  <div style="position:absolute;left:150px;right:150px;top:250px;display:grid;grid-template-columns:1fr 1fr;gap:70px">
+    <div class="glass">
+      <h3>TFSports + Track&amp;Field</h3>
+      <ul>
+        <li>Inscrições exclusivas pelo app TFSports</li>
+        <li>Divulgação para a base de usuários do app</li>
+        <li>Camiseta Track&amp;Field Thermodry</li>
+        <li>Retirada de kit na loja Track&amp;Field</li>
+        <li>NPS e relatório pós-evento</li>
+      </ul>
+    </div>
+    <div class="glass">
+      <h3>Yoga Morning Club</h3>
+      <ul>
+        <li>50 vagas para uma manhã exclusiva</li>
+        <li>Prática conduzida por Thaís Schiavon</li>
+        <li>Brunch, água de coco e DJ</li>
+        <li>Casa Rosada como cenário</li>
+        <li>Conteúdo para as redes das marcas</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 13. MARCAS -->
+<section class="slide">
+  <div class="hdr">TFSPORTS</div><div class="yr">2026</div>
+  <div class="title" style="position:absolute;left:0;right:0;top:150px;text-align:center">Marcas que se conectam</div>
+  <div class="logos-row" style="position:absolute;left:0;right:0;top:470px;justify-content:center;gap:110px;color:var(--ink)">
+    <img src="img/tfsports-projetos-preto.png" style="height:150px">
+    <img src="img/trackfield.png" style="height:62px;filter:brightness(0) opacity(.8)">
+    <span class="porto-slot" style="font-size:22px;padding:24px 40px">Logo Porto Seguro</span>
+  </div>
+  <div style="position:absolute;left:0;right:0;top:760px;display:flex;justify-content:center;gap:40px">
+    <div class="box" style="padding:22px 48px;font-size:28px;font-style:italic">Local · Casa Rosada</div>
+    <div class="box" style="padding:22px 48px;font-size:28px;font-style:italic">Professora · Yoga Schiavon®</div>
+  </div>
+</section>
+
+<!-- 14. RÉGUA DE AÇÃO -->
+<section class="slide">
+  <div class="hdr">TFSPORTS</div><div class="yr">2026</div>
+  <div class="title" style="position:absolute;left:120px;top:150px">Régua de Ação</div>
+  <div style="position:absolute;left:0;right:0;top:640px;height:0">
+    <div class="tl" style="left:60px;right:60px"></div>
+    <div class="tl-dot" style="left:160px"></div>
+    <div class="tl-dot" style="left:388px"></div>
+    <div class="tl-dot" style="left:617px"></div>
+    <div class="tl-dot" style="left:845px"></div>
+    <div class="tl-dot" style="left:1074px"></div>
+    <div class="tl-dot" style="left:1302px"></div>
+    <div class="tl-dot" style="left:1531px"></div>
+    <div class="tl-dot" style="left:1760px"></div>
+    <div class="tl-lbl" style="left:160px;bottom:36px;width:260px">Apresentação<br>do projeto</div>
+    <div class="tl-lbl" style="left:388px;top:36px;width:260px">Alinhamento<br>com parceiros</div>
+    <div class="tl-lbl" style="left:617px;bottom:36px;width:260px">Cadastro no<br>TFSports Trainer</div>
+    <div class="tl-lbl" style="left:845px;top:36px;width:280px">Abertura das inscrições<br>(50 vagas)</div>
+    <div class="tl-lbl" style="left:1074px;bottom:36px;width:280px">Comunicação:<br>app, push e e-mail</div>
+    <div class="tl-lbl" style="left:1302px;top:36px;width:260px">Retirada de kit<br>na Track&amp;Field</div>
+    <div class="tl-lbl" style="left:1531px;bottom:36px;width:300px"><b style="font-weight:600">Yoga Morning Club</b><br>06/12</div>
+    <div class="tl-lbl" style="left:1760px;top:36px;width:260px">NPS e relatório<br>pós-evento</div>
+  </div>
+</section>
+
+<!-- 15. ENCERRAMENTO -->
+<section class="slide dark">
+  <div class="strips">
+    <div class="ph shade" style="background-image:url(img/f05.jpg)"></div>
+    <div class="ph shade" style="background-image:url(img/f11.jpg)"></div>
+    <div class="ph shade" style="background-image:url(img/f03.jpg)"></div>
+    <div class="ph shade" style="background-image:url(img/f10.jpg)"></div>
+  </div>
+  <div class="hdr">TFSPORTS</div><div class="yr">2026</div>
+  <div class="center">
+    <img src="img/tf-simbolo.png" style="width:150px;margin-bottom:40px">
+    <div class="title xl white">Vamos juntos?</div>
+    <div class="sub white" style="margin-top:18px;color:#fff">Yoga Morning Club · 06.12.2026 · Casa Rosada</div>
+    <div class="logos-row white" style="margin-top:80px;gap:60px">
+      <img src="img/tfsports-projetos-branco.png" style="height:96px">
+      <img src="img/trackfield.png" style="height:44px">
+      <span class="porto-slot">Logo Porto Seguro</span>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>
