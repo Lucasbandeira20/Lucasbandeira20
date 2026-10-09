@@ -55,7 +55,7 @@ Fica dentro da tabela "TABELA TIKTOKSHOP_2".
 | AA | Preço Shopee (ref) |
 
 - Linhas laranja são divisórias.
-- Faixas amarelas separam os lotes de produtos criados: linha 414 (20 produtos de 06/10/2026 14:15), linha 435 (134 produtos do lote 06/10/2026 22:35, linhas 436 a 569) linha 570 (430 produtos do lote 07/10/2026 13:42, linhas 571 a 1000) linha 1001 (188 produtos do lote 07/10/2026 18:44, linhas 1002 a 1189) e linha 1190 (12 produtos do lote 07/10/2026 23:39, linhas 1191 a 1202). A tabela vai até a linha 1281: expanda antes de um lote grande.
+- Faixas amarelas separam os lotes de produtos criados: linha 414 (20 produtos de 06/10/2026 14:15), linha 435 (134 produtos do lote 06/10/2026 22:35, linhas 436 a 569) linha 570 (430 produtos do lote 07/10/2026 13:42, linhas 571 a 1000) linha 1001 (188 produtos do lote 07/10/2026 18:44, linhas 1002 a 1189) linha 1190 (12 produtos do lote 07/10/2026 23:39, linhas 1191 a 1202) e linha 1203 (29 produtos do lote 09/10/2026 18:03, linhas 1204 a 1232). A tabela vai até a linha 1281: expanda antes de um lote grande.
 - Kits (ex.: "Par de pneus"): a coluna OBS (T) registra a composição usada no custo.
 - Cores da margem (col. M): vermelho abaixo de 10%, amarelo de 10% a 15%, verde a partir de 15%.
 
@@ -65,7 +65,7 @@ Fica dentro da tabela "TABELA TIKTOKSHOP_2".
 - A = ID do produto, G = ID do SKU, K = SKU do vendedor (= SKU Bling). Os três ficam em texto, porque os IDs têm 19 dígitos.
 - U = linha no CONTROLE. A fórmula compara com `VALUE()`, porque o SKU pode vir com zero à esquerda.
 - V = DATA E HORA DE ENTRADA, no formato dd/mm/aaaa hh:mm. SKUs que entram na mesma planilha recebem a mesma data e hora.
-- Cada lote novo recebe uma cor de fundo diferente (o lote de 06/10/2026 22:35 é azul claro, linhas 163 a 377; o de 07/10/2026 13:42 é verde claro, linhas 378 a 867; o de 07/10/2026 18:44 é lilás, linhas 868 a 1107; o de 07/10/2026 23:39 é pêssego, linhas 1108 a 1131).
+- Cada lote novo recebe uma cor de fundo diferente (o lote de 06/10/2026 22:35 é azul claro, linhas 163 a 377; o de 07/10/2026 13:42 é verde claro, linhas 378 a 867; o de 07/10/2026 18:44 é lilás, linhas 868 a 1107; o de 07/10/2026 23:39 é pêssego, linhas 1108 a 1131; o de 09/10/2026 18:03 é amarelo-claro, linhas 1132 a 1162).
 
 ### Aba PROMOÇÕES TIKTOK
 
@@ -170,3 +170,10 @@ Use a skill `/tiktok-novos-produtos` (`.claude/skills/tiktok-novos-produtos/`): 
   - Atualizados: CONTROLE L576:L597 (com OBS na coluna T) e PROMOÇÕES C, K e L nas linhas 390 a 411. Não está na CAMPANHAS TIKTOK.
   - Excel de promoção não foi gerado. O usuário alterou o preço no TikTok (confirmado em 09/10/2026).
 - **Alteração de preço avulsa:** atualize o CONTROLE (L + OBS com data e motivo), a PROMOÇÕES (C em texto com ponto, K e L) e a CAMPANHAS TIKTOK, se o SKU estiver lá. Registre no HISTÓRICO da aba REGRAS e aqui.
+- **09/10/2026 18:03 (6ª carga, exportação em 2 arquivos, 1150 SKUs ativos):**
+  - 31 SKUs novos na BASE (linhas 1132 a 1162, fundo amarelo-claro), todos Polar (relógios e cinta).
+  - 2 já estavam no CONTROLE. Os outros 29 foram criados (linhas 1204 a 1232, abaixo da faixa amarela 1203).
+  - 16 no menor canal, 9 ajustados para 20% (menor canal igual ao preço original), 2 subidos para 10%, 2 sem referência (15%).
+  - 21992 (Unite Branco, linha 331) tinha venda igual ao cheio (R$ 1.899,00) e foi para R$ 1.499,90 (20%).
+  - Saíram do TikTok: 6 Nathor Aro 12 Personagens e os 5 anúncios duplicados de selins.
+  - Promoção e Excel com os 31 novos (PROMOÇÕES, linhas 1132 a 1162).

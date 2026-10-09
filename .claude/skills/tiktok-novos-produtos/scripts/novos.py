@@ -1,6 +1,8 @@
 """Passo 1: separa os SKUs novos da exportação do TikTok.
 
-Uso: python3 -I novos.py <exportacao.xlsx> <base_G.json> <controle_C.json> <pasta_lote>
+Uso: python3 -I novos.py <exportacao.xlsx> [<exportacao2.xlsx> ...] <base_G.json> <controle_C.json> <pasta_lote>
+
+O TikTok divide exportações grandes em vários arquivos (_1, _2...): passe todos, eles são somados.
 
 - exportacao.xlsx: arquivo all_information_template do TikTok Seller Center (aba Template).
 - base_G.json: get_values de 'BASE PRODUTOS TIKTOK'!G1:G (IDs de SKU já na BASE).
@@ -21,7 +23,7 @@ import openpyxl
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from lib import load_values  # noqa: E402
 
-exp, base_g, ctl_c, out = sys.argv[1:5]
+*exps, base_g, ctl_c, out = sys.argv[1:]
 os.makedirs(out, exist_ok=True)
 
 KEYS = ['product_id', 'category', 'product_name', 'product_status', 'gtin_type', 'gtin_code', 'sku_id',
@@ -29,15 +31,19 @@ KEYS = ['product_id', 'category', 'product_name', 'product_status', 'gtin_type',
         'cumulative_order_quantity', 'parcel_weight', 'parcel_length', 'parcel_width', 'parcel_height', 'cod',
         'size_chart']
 
-wb = openpyxl.load_workbook(exp, data_only=True)
-ws = wb['Template'] if 'Template' in wb.sheetnames else wb.active
-rows = [[c.value for c in r] for r in ws.iter_rows()]
-H = rows[0]
-ix = {h: i for i, h in enumerate(H) if h}
-falt = [k for k in KEYS if k not in ix]
-if falt:
-    print('ATENÇÃO, colunas não encontradas na exportação:', falt)
-dados = [[r[ix[k]] if k in ix else '' for k in KEYS] for r in rows[5:] if r[0] not in (None, '')]
+dados = []
+for exp in exps:
+    wb = openpyxl.load_workbook(exp, data_only=True)
+    ws = wb['Template'] if 'Template' in wb.sheetnames else wb.active
+    rows = [[c.value for c in r] for r in ws.iter_rows()]
+    H = rows[0]
+    ix = {h: i for i, h in enumerate(H) if h}
+    falt = [k for k in KEYS if k not in ix]
+    if falt:
+        print(f'ATENÇÃO, colunas não encontradas em {os.path.basename(exp)}:', falt)
+    d = [[r[ix[k]] if k in ix else '' for k in KEYS] for r in rows[5:] if r[0] not in (None, '')]
+    print(f'{os.path.basename(exp)}: {len(d)} SKUs')
+    dados += d
 
 
 def conv(r):

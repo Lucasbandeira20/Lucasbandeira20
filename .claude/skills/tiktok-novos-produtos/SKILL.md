@@ -28,7 +28,7 @@ As regras de preço, colunas e histórico estão no `CLAUDE.md` da raiz do repos
    - `'CONTROLE ANÚNCIOS TIKTOKSHOP 03.10'!C1:C3000` → `$L/controle_C.json`
    - Anote também a última linha preenchida da BASE (= início do lote), da PROMOÇÕES e do CONTROLE
      (leia `A1:A3000` da PROMOÇÕES e `B1:C3000` do CONTROLE, só para achar o fim).
-2. `python3 -I scripts/novos.py $L/<arquivo>.xlsx $L/base_G.json $L/controle_C.json $L`
+2. `python3 -I scripts/novos.py $L/<arquivo>.xlsx [$L/<arquivo_2>.xlsx ...] $L/base_G.json $L/controle_C.json $L`. Quando a exportação vem dividida (`..._1.xlsx`, `..._2.xlsx`), passe todos os arquivos.
    - Gera `novos.json`, `skus_todos.json` e `skus_criar.json`, e imprime o resumo. Ele avisa SKUs Bling em mais de um
      anúncio e quantos SKUs sumiram da exportação (anúncios removidos no TikTok).
    - Se não houver novos, avise o usuário e pare.
@@ -52,7 +52,7 @@ As regras de preço, colunas e histórico estão no `CLAUDE.md` da raiz do repos
    - `'Regra Especial Shopee AGO2026'!A1:J3000` → `refs/regra_especial.json`
    - `'Controle Anúncios Shopee'!A1:P3000` → `refs/shopee.json`
    - `'Regra Shopee Padrão'!A1:N3000` → `refs/regra.json`
-   - `'Shopee TANKE'!A1:N3000` → `refs/tanke.json`
+   - `'Shopee TANKE'!A1:N200` → `refs/tanke.json` (as linhas abaixo de ~80 são só `#REF!`; um range grande enche o contexto)
    - `'Cálculo de Margem 0203'!A1:L3000` → `refs/ml.json`
 2. `python3 -I scripts/refs.py $L`: imprime SEM REF, APROX (nome aproximado) e DUPLICADO NA REGRA ESPECIAL.
 3. `python3 -I scripts/precos.py $L`: aplica as regras e gera `linhas.json`, com o resumo por produto.
