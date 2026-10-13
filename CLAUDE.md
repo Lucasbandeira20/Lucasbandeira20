@@ -103,6 +103,7 @@ Fica dentro da tabela "TABELA TIKTOKSHOP_2".
 - **Só é preenchida com os demonstrativos financeiros** (income por pedido + onhold). Ao receber novos: trocar na ANÁLISE a col. D (situação) e N:R (taxas reais) e reescrever o bloco pedido a pedido e as transferências.
 - **Só é preenchida com os demonstrativos financeiros** (income por pedido, income resumo, onhold), nunca com o relatório de pedidos. B30 soma o repasse da ANÁLISE só dos pedidos que estão na conciliação; B31 mostra a diferença (pedidos que a ANÁLISE já marcou como cancelados/devolvidos e o financeiro ainda não).
 - Linhas 4 a 21 (resumo das vendas) somam a ANÁLISE inteira, inclusive pedidos ainda sem financeiro.
+- **Excel para o financeiro** (só ANÁLISE + CONCILIAÇÃO): **na CONCILIAÇÃO não congele linhas** (o bloco pedido a pedido começa na linha 44 e congelar até ela esconde o resto da tela). Na ANÁLISE, congelar só a linha 1 do cabeçalho é ok.
 
 ### Aba GMV MAX TIKTOK
 
