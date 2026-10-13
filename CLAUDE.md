@@ -91,7 +91,8 @@ Fica dentro da tabela "TABELA TIKTOKSHOP_2".
 ### Aba ANÁLISE MARGEM VENDAS TIKTOK
 
 - Uma linha por pedido (enviados + a enviar), em ordem de data. Dados colados dos relatórios do TikTok; o resto é fórmula.
-- A data | B pedido (texto) | C status | D situação financeira | E produto | F SKU | G qtd | H custo (fórmula, CONTROLE col. E) | I preço cheio | J desconto loja | K **valor de venda** (= I − J) | L desconto TikTok (pago pela plataforma, não entra na margem) | M pago pelo cliente | N comissão | O frete SFP 6% | P taxa por item | Q afiliados | R outras taxas | S imposto 7,3% | T custo produto | U custo total | V repasse TikTok | W **margem real** | X lucro | Y linha no CONTROLE | Z preço CONTROLE | AA margem CONTROLE | AB diferença | AC conferência (OK se ±0,5 p.p.) | AD motivo.
+- **Comando `/tiktok-pedidos`** (`.claude/skills/tiktok-pedidos/`): quando o usuário mandar o relatório `Todos_pedido-*.xlsx` (mês completo ou parcial), adiciona só os pedidos novos, atualiza o status (col. C) e marca cancelados/devolvidos (D = CANCELADO / DEVOLVIDO, qtd e valores zerados). Pedidos novos ficam com D = "ESTIMADO (sem extrato)" e N, O, P como fórmula pela regra; ao receber income/onhold, trocar pelos valores reais.
+- A data | B pedido (texto) | C status | D situação financeira | E produto | F SKU | G qtd | H custo (fórmula, CONTROLE col. E) | I preço cheio | J desconto loja | K **valor de venda** (= I − J) | L desconto TikTok (pago pela plataforma, não entra na margem) | M pago pelo cliente | N comissão | O frete SFP 6% | P taxa por item | Q afiliados | R outras taxas | S imposto 7,3% | T custo produto | U custo total | V repasse TikTok | W **margem real** | X lucro | Y linha no CONTROLE | Z preço CONTROLE | AA margem CONTROLE | AB diferença | AC conferência (OK se ±0,5 p.p.) | AD motivo (fórmula nas linhas novas) | AE produto no GMV Max (SIM).
 - Cores da margem (W e AA) iguais às do CONTROLE.
 
 ### Aba CONCILIAÇÃO FINANCEIRA TIKTOK
@@ -164,7 +165,8 @@ Use a skill `/tiktok-novos-produtos` (`.claude/skills/tiktok-novos-produtos/`): 
 - Kit 3 Pneu Chaoyang Phantom Wet (18280) aparece com estoque de 4.931 no Bling, o que parece erro de cadastro. Precisa ser conferido.
 - **GMV Max (anúncios):** cobrança por pedido = (pagamento do cliente + desconto do TikTok) ÷ ROI do anúncio. Apareceu em 08/10 nas bicicletas 23620 (R$ 11,85, ROI 17,5) e 23622 (R$ 10,53, ROI 19,7), cerca de 5% a 5,7% da venda. Não está no CONTROLE. O usuário precisa decidir se o CONTROLE considera esse custo ou se tira do GMV Max os produtos com margem perto de 10%.
 - Margem: comissão de afiliado (até 8,5%) não está no CONTROLE e derrubou várias vendas para baixo de 10%. O usuário precisa decidir se o CONTROLE passa a considerar afiliados.
-- Atualizar a ANÁLISE e a CONCILIAÇÃO a cada novo download dos relatórios (income, onhold e pedidos).
+- Atualizar a ANÁLISE e a CONCILIAÇÃO a cada novo download dos relatórios (income, onhold e pedidos). Os 168 pedidos de 08/10 a 13/10 estão com taxas estimadas: falta o income/onhold deles.
+- Bicicletas Nathor vendidas a R$ 197,51 (5% abaixo do CONTROLE) e R$ 207,40 (− R$ 0,50) entre 09/10 e 13/10, com margem de 6,4% e 9,9%. Elas não estão na lista da CAMPANHAS TIKTOK: confirmar com o usuário de onde veio esse desconto.
 
 ## Histórico
 
@@ -200,3 +202,7 @@ Use a skill `/tiktok-novos-produtos` (`.claude/skills/tiktok-novos-produtos/`): 
   - 138 vendas (116 enviadas + 22 a enviar) nas abas ANÁLISE MARGEM VENDAS TIKTOK e CONCILIAÇÃO FINANCEIRA TIKTOK (nova).
   - Margem média real de 13,1%. 44 vendas ficaram abaixo de 10% (preço antigo antes do ajuste de 06/10, afiliados e desconto extra de R$ 5). 45 vendas conforme o CONTROLE.
   - Transferências de 07/10 (R$ 16,08) e 08/10 (R$ 691,63) bateram com a soma dos pedidos. A receber: R$ 9.975,48.
+- **13/10/2026 09:29 (pedidos, comando /tiktok-pedidos):**
+  - Relatório completo com 447 pedidos (26/09 a 13/10). 168 novos na ANÁLISE (linhas 140 a 307) e na CONCILIAÇÃO (linhas 183 a 350), com taxas estimadas pela regra.
+  - Margem estimada dos novos: 13,7%. 31 abaixo de 10%, todos bicicletas Nathor (R$ 197,51, R$ 207,40 e Balance a R$ 170,91).
+  - Cancelado: 586481617546020579 (22808). Devolvido: 586417088865141927 (20966, reembolso de R$ 27,16). Os dois foram zerados na margem.

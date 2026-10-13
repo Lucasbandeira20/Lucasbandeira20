@@ -1,0 +1,60 @@
+---
+name: tiktok-pedidos
+description: Processa um relatório de pedidos do TikTok Seller Center (arquivo Todos_pedido-AAAA-MM-DD-HH_MM.xlsx, aba OrderSKUList) da Avelar Shop. Compara com a aba ANÁLISE MARGEM VENDAS TIKTOK, adiciona só os pedidos novos (enviados, a enviar e concluídos), atualiza o status dos antigos, marca cancelados e devolvidos e acrescenta os novos na CONCILIAÇÃO FINANCEIRA TIKTOK. Use sempre que o usuário enviar a planilha de pedidos, disser "planilha de pedidos", "novos pedidos do TikTok", "todos os pedidos" ou pedir /tiktok-pedidos. O arquivo pode ser do mês completo ou parcial.
+---
+
+# Pedidos TikTok Shop → ANÁLISE MARGEM VENDAS e CONCILIAÇÃO
+
+Regras, colunas e histórico estão no `CLAUDE.md` da raiz e na aba **REGRAS E PROCESSO TIKTOK**. Este arquivo é o roteiro.
+
+- Planilha `1ZpeObRddsYOU6lphQaRuH2j4O_dgEzCUdV4ODTxst9w` (pt-BR: fórmulas com `;`).
+- sheetIds: ANÁLISE `1935682352`, CONCILIAÇÃO `2026100801`, REGRAS `738877884`.
+- Nunca altere o CONTROLE, a PROMOÇÕES nem abas de ML/Shopee.
+- O relatório de pedidos **não traz taxas**. Comissão, SFP 6% e taxa por item dos pedidos novos ficam como **fórmula pela regra** (colunas N, O, P). Afiliado e GMV Max só aparecem no income/onhold: quando o usuário mandar esses relatórios, troque N:R pelos valores reais e a coluna D pela situação financeira.
+- O relatório tem CPF, endereço e telefone: **nunca copie esses campos** para a planilha.
+- Pasta do lote: `$L = $SCRATCH/pedidos_AAAAMMDD`. Copie o .xlsx para lá. Scripts com `python3 -I`.
+- Mantenha o usuário informado com frases curtas entre as etapas.
+
+## Passo 1: ler o que já está na planilha
+1. `get_values` de `'ANÁLISE MARGEM VENDAS TIKTOK'!A1:D3000` e de `'CONCILIAÇÃO FINANCEIRA TIKTOK'!A1:A3000`.
+2. Salve os dois com o script da outra skill (o range devolvido é cortado no tamanho da aba, ex.: `A1:D1000`, `A1:A400`; use o range que aparecer no resultado):
+   `python3 -I .claude/skills/tiktok-novos-produtos/scripts/salvar_resultado.py "ANÁLISE MARGEM VENDAS TIKTOK'!A1:D1000" $L/analise_AD.json`
+   `python3 -I .claude/skills/tiktok-novos-produtos/scripts/salvar_resultado.py "CONCILIAÇÃO FINANCEIRA TIKTOK'!A1:A400" $L/conciliacao_A.json`
+3. Confira se as abas têm linhas suficientes (ANÁLISE 1000, CONCILIAÇÃO 400). Se não, `appendDimension` antes de gravar.
+
+## Passo 2: comparar
+`python3 -I .claude/skills/tiktok-pedidos/scripts/pedidos.py $L/<arquivo>.xlsx $L/analise_AD.json $L/conciliacao_A.json $L`
+
+Gera `resumo.txt`, `info.json` (linhas de início/fim), `analise_novos_NN.json`, `conciliacao_novos_NN.json`,
+`analise_status_C.json` e `mudancas.json`. Mostre o resumo ao usuário. Se não houver novos nem mudanças, pare.
+Novos = status Enviado, A ser enviado ou Concluído, sem cancelamento/devolução, que não estão na coluna B da ANÁLISE.
+Pedidos antigos que não vierem no arquivo (relatório parcial) ficam como estão.
+
+## Passo 3: gravar na ANÁLISE
+1. `update_formulas` de cada `analise_novos_NN.json` a partir de `A<analise_inicio>` (top-left só; 40 linhas por parte).
+   A 1ª linha nova leva todas as fórmulas; as outras vêm com `null` nas colunas de fórmula.
+2. Um `update_spreadsheet` com:
+   - `copyPaste PASTE_FORMAT` da última linha antiga (A:AD) para as novas;
+   - `copyPaste PASTE_FORMULA` da 1ª linha nova para as demais nas colunas H, K, N:P e S:AE (índices 7, 10, 13–15, 18–30).
+3. Status: `update_formulas` de `analise_status_C.json` em `C2` (atualiza "Enviado / Entregue" etc. das linhas antigas).
+4. Para cada item de `mudancas.json` (cancelado ou devolvido):
+   - ANÁLISE, linha `linha_analise`: `D:R` = `[situacao, null, null, 0, null, 0, 0, null, 0, 0, 0, 0, 0, 0, 0]`
+     (D situação, G qtd 0, I/J/L:R zerados; H e K continuam fórmula) e `AD` com o motivo (data, quem cancelou, valor reembolsado).
+   - CONCILIAÇÃO, linha `linha_conciliacao`: `F` = "Cancelado pelo cliente" ou "Devolvido (reembolso ao cliente)", `M` = 0, `P` = explicação.
+
+## Passo 4: gravar na CONCILIAÇÃO
+1. `update_formulas` só das colunas A:D de todas as linhas novas a partir de `A<conciliacao_inicio>`.
+2. `update_formulas` de `E:R` da 1ª linha nova (pegue do `conciliacao_novos_00.json`, item 0, posições 4–17).
+3. Um `update_spreadsheet` com: `PASTE_FORMAT` (A:R) da linha antiga anterior; `PASTE_VALUES` de E:R da 1ª linha nova
+   para as demais; depois `PASTE_FORMULA` de K:O e de R da 1ª linha nova para as demais.
+4. Atualize a nota da linha 2 com a data do relatório de pedidos.
+
+## Passo 5: conferir
+- `CONCILIAÇÃO!A4:C31`: "Diferença (tem que ser zero)" = R$ 0,00 e o total de pedidos bate.
+- ANÁLISE: leia `W<ini>:AE<fim>` (o resultado é grande: vem salvo em arquivo; resuma com python). Nenhum `#N/A`/`#REF!`;
+  coluna Y (linha no CONTROLE) preenchida. SKU sem linha no CONTROLE aparece em AD como "SKU não está no CONTROLE": avise.
+- Resuma ao usuário: quantos novos, margem estimada, quantos abaixo de 10% e por quê (coluna AD), cancelados/devolvidos.
+
+## Passo 6: registrar
+- HISTÓRICO da aba REGRAS E PROCESSO TIKTOK (inserir linha logo após o último item de data do HISTÓRICO) e `CLAUDE.md`.
+- Commit e push na branch de trabalho.
