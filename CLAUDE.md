@@ -91,7 +91,7 @@ Fica dentro da tabela "TABELA TIKTOKSHOP_2".
 ### Aba ANÁLISE MARGEM VENDAS TIKTOK
 
 - Uma linha por pedido (enviados + a enviar), em ordem de data. Dados colados dos relatórios do TikTok; o resto é fórmula.
-- **Comando `/tiktok-pedidos`** (`.claude/skills/tiktok-pedidos/`): quando o usuário mandar o relatório `Todos_pedido-*.xlsx` (mês completo ou parcial), adiciona só os pedidos novos, atualiza o status (col. C) e marca cancelados/devolvidos (D = CANCELADO / DEVOLVIDO, qtd e valores zerados). Pedidos novos ficam com D = "ESTIMADO (sem extrato)" e N, O, P como fórmula pela regra; ao receber income/onhold, trocar pelos valores reais.
+- **Comando `/tiktok-pedidos`** (`.claude/skills/tiktok-pedidos/`): quando o usuário mandar o relatório `Todos_pedido-*.xlsx` (mês completo ou parcial), adiciona só os pedidos novos **na ANÁLISE**, atualiza o status (col. C) e marca cancelados/devolvidos (D = CANCELADO / DEVOLVIDO, qtd e valores zerados). **O relatório de pedidos é só de vendas: nunca grave nada na CONCILIAÇÃO com ele.** Pedidos novos ficam com D = "ESTIMADO (sem extrato)" e N, O, P como fórmula pela regra; ao receber income/onhold, trocar pelos valores reais.
 - A data | B pedido (texto) | C status | D situação financeira | E produto | F SKU | G qtd | H custo (fórmula, CONTROLE col. E) | I preço cheio | J desconto loja | K **valor de venda** (= I − J) | L desconto TikTok (pago pela plataforma, não entra na margem) | M pago pelo cliente | N comissão | O frete SFP 6% | P taxa por item | Q afiliados | R outras taxas | S imposto 7,3% | T custo produto | U custo total | V repasse TikTok | W **margem real** | X lucro | Y linha no CONTROLE | Z preço CONTROLE | AA margem CONTROLE | AB diferença | AC conferência (OK se ±0,5 p.p.) | AD motivo (fórmula nas linhas novas) | AE produto no GMV Max (SIM).
 - Cores da margem (W e AA) iguais às do CONTROLE.
 
@@ -100,6 +100,8 @@ Fica dentro da tabela "TABELA TIKTOKSHOP_2".
 - Linhas 4 a 21: resumo das vendas (fórmulas sobre a ANÁLISE). Linhas 23 a 31: onde está o dinheiro (transferido, a receber, em devolução, sem extrato).
 - Linhas 33 a 36: transferências do TikTok (aba Pagamentos do income) × soma dos pedidos do pagamento. Col. G = caixinha para conferir no extrato do banco.
 - Linha 39 em diante: pedido a pedido. L = repasse esperado pela regra do CONTROLE; M = repasse do TikTok (real ou estimado); N = diferença. Inclui os pedidos cancelados que aparecem zerados nos extratos.
+- **Só é preenchida com os demonstrativos financeiros** (income por pedido, income resumo, onhold), nunca com o relatório de pedidos. B30 soma o repasse da ANÁLISE só dos pedidos que estão na conciliação; B31 mostra a diferença (pedidos que a ANÁLISE já marcou como cancelados/devolvidos e o financeiro ainda não).
+- Linhas 4 a 21 (resumo das vendas) somam a ANÁLISE inteira, inclusive pedidos ainda sem financeiro.
 
 ### Aba GMV MAX TIKTOK
 
@@ -203,6 +205,7 @@ Use a skill `/tiktok-novos-produtos` (`.claude/skills/tiktok-novos-produtos/`): 
   - Margem média real de 13,1%. 44 vendas ficaram abaixo de 10% (preço antigo antes do ajuste de 06/10, afiliados e desconto extra de R$ 5). 45 vendas conforme o CONTROLE.
   - Transferências de 07/10 (R$ 16,08) e 08/10 (R$ 691,63) bateram com a soma dos pedidos. A receber: R$ 9.975,48.
 - **13/10/2026 09:29 (pedidos, comando /tiktok-pedidos):**
-  - Relatório completo com 447 pedidos (26/09 a 13/10). 168 novos na ANÁLISE (linhas 140 a 307) e na CONCILIAÇÃO (linhas 183 a 350), com taxas estimadas pela regra.
+  - Relatório completo com 447 pedidos (26/09 a 13/10). 168 novos na ANÁLISE (linhas 140 a 307), com taxas estimadas pela regra.
+  - Por engano, os 168 também foram gravados na CONCILIAÇÃO; a pedido do usuário isso foi desfeito (a conciliação voltou ao financeiro de 08/10). B31 mostra R$ 80,32: os 2 pedidos abaixo, que o financeiro ainda não registrou.
   - Margem estimada dos novos: 13,7%. 31 abaixo de 10%, todos bicicletas Nathor (R$ 197,51, R$ 207,40 e Balance a R$ 170,91).
   - Cancelado: 586481617546020579 (22808). Devolvido: 586417088865141927 (20966, reembolso de R$ 27,16). Os dois foram zerados na margem.

@@ -1,17 +1,18 @@
-"""Compara um relatório de pedidos do TikTok (Todos_pedido / OrderSKUList .xlsx) com as abas
-ANÁLISE MARGEM VENDAS TIKTOK e CONCILIAÇÃO FINANCEIRA TIKTOK e gera os payloads de gravação.
+"""Compara um relatório de pedidos do TikTok (Todos_pedido / OrderSKUList .xlsx) com a aba
+ANÁLISE MARGEM VENDAS TIKTOK e gera os payloads de gravação.
 
-Uso: python3 -I pedidos.py <pedidos.xlsx> <analise_AD.json> <conciliacao_A.json> <pasta_saida>
+O relatório de pedidos é só de VENDAS: ele alimenta apenas a ANÁLISE. A CONCILIAÇÃO FINANCEIRA
+só é preenchida com os demonstrativos financeiros (income / onhold), nunca por este script.
 
-- analise_AD.json   = get_values de 'ANÁLISE MARGEM VENDAS TIKTOK'!A1:AD3000 (salvo com salvar_resultado.py)
-- conciliacao_A.json = get_values de 'CONCILIAÇÃO FINANCEIRA TIKTOK'!A1:A3000
+Uso: python3 -I pedidos.py <pedidos.xlsx> <analise_AD.json> <pasta_saida>
+
+- analise_AD.json = get_values de 'ANÁLISE MARGEM VENDAS TIKTOK'!A1:D3000 (salvo com salvar_resultado.py)
 
 Saídas na pasta:
 - resumo.txt
 - analise_novos_NN.json   linhas novas da ANÁLISE (A:AD), em partes de 40; fórmulas só na 1ª linha nova
 - analise_status_C.json   coluna C (status) atualizada para todas as linhas antigas (C2:C<última>)
-- conciliacao_novos_NN.json linhas novas da CONCILIAÇÃO (A:R), em partes de 40; fórmulas só na 1ª linha nova
-- mudancas.json           pedidos antigos que viraram cancelado/devolvido (linha na ANÁLISE e na CONCILIAÇÃO)
+- mudancas.json           pedidos antigos que viraram cancelado/devolvido (linha na ANÁLISE)
 - info.json               linhas de início, quantidades e intervalos de cópia de fórmulas
 O relatório pode ser do mês completo ou parcial: pedidos que não vierem no arquivo continuam como estão.
 """
@@ -76,23 +77,12 @@ def formulas_analise(r):
     }
 
 
-def formulas_conc(r):
-    return {
-        10: f'=IF(R{r}="";0;INDEX({AN}!$K$1:$K;R{r}))',
-        11: f'=IF(K{r}=0;0;K{r}-IF(K{r}/J{r}<50;K{r}*0,1+4*J{r};K{r}*0,06+6*J{r})-MIN(K{r}*0,06;50*J{r}))',
-        12: f'=IF(R{r}="";0;INDEX({AN}!$V$1:$V;R{r}))',
-        13: f'=M{r}-L{r}',
-        14: f'=IF(ABS(N{r})<=0,05;"OK";"DIFERENÇA")',
-        17: f'=IFERROR(MATCH(A{r};{AN}!$B$2:$B;0)+1;"")',
-    }
-
-
 def chunks(rows, n=40):
     return [rows[i:i + n] for i in range(0, len(rows), n)]
 
 
 def main():
-    xlsx, an_p, cc_p, out = sys.argv[1:5]
+    xlsx, an_p, out = sys.argv[1:4]
     os.makedirs(out, exist_ok=True)
     ws = openpyxl.load_workbook(xlsx, data_only=True).worksheets[0]
     rows = [r for r in ws.iter_rows(values_only=True) if any(c not in (None, '') for c in r)]
@@ -103,9 +93,6 @@ def main():
     an = load(an_p)
     an_ids = {str(r[1]).lstrip("'"): i + 1 for i, r in enumerate(an) if i > 0 and len(r) > 1 and r[1]}
     last_an = max(an_ids.values()) if an_ids else 1
-    cc = load(cc_p)
-    cc_ids = {str(r[0]).lstrip("'"): i + 1 for i, r in enumerate(cc) if r and str(r[0]).lstrip("'").isdigit()}
-    last_cc = max(cc_ids.values()) if cc_ids else 39
 
     # status atualizado das linhas antigas (coluna C) e mudanças para cancelado/devolvido
     col_c, mudancas = [], []
@@ -125,7 +112,7 @@ def main():
             if sit.startswith(('CANCELADO', 'DEVOLVIDO')):
                 continue
             mudancas.append({
-                'pedido': pid, 'linha_analise': row, 'linha_conciliacao': cc_ids.get(pid),
+                'pedido': pid, 'linha_analise': row,
                 'status': d['Order Status'], 'tipo': tipo, 'sku': d['Seller SKU'],
                 'reembolso': brl(d.get('Order Refund Amount')), 'qtd_devolvida': d.get('Sku Quantity of return'),
                 'cancelado_em': d.get('Cancelled Time'), 'motivo': d.get('Cancel Reason'), 'por': d.get('Cancel By'),
@@ -136,8 +123,8 @@ def main():
              and not d.get('Cancelation/Return Type')]
     novos.sort(key=lambda d: dt(d['Created Time']))
 
-    an_rows, cc_rows = [], []
-    r0, c0 = last_an + 1, last_cc + 1
+    an_rows = []
+    r0 = last_an + 1
     for i, d in enumerate(novos):
         q = int(d['Quantity'])
         cheio = brl(d['SKU Subtotal Before Discount'])
@@ -153,26 +140,13 @@ def main():
             for k, v in formulas_analise(r0).items():
                 row[k] = v
         an_rows.append(row)
-        ent = dt(d['Delivered Time'])
-        crow = ["'" + str(d['Order ID']), "'" + str(d['Seller SKU']), d['Product Name'],
-                dt(d['Created Time']).strftime('%d/%m/%Y'), ent.strftime('%d/%m/%Y') if ent else '',
-                'Sem extrato (estimado pela regra)', '', '', '', q, None, None, None, None, None,
-                'Valor estimado pela regra', 'Entrega + 7 dias', None]
-        if i == 0:
-            for k, v in formulas_conc(c0).items():
-                crow[k] = v
-        cc_rows.append(crow)
 
     for i, ch in enumerate(chunks(an_rows)):
         json.dump(ch, open(f'{out}/analise_novos_{i:02d}.json', 'w'), ensure_ascii=False, separators=(',', ':'))
-    for i, ch in enumerate(chunks(cc_rows)):
-        json.dump(ch, open(f'{out}/conciliacao_novos_{i:02d}.json', 'w'), ensure_ascii=False, separators=(',', ':'))
-    json.dump(col_c, open(f'{out}/analise_status_C.json', 'w'), ensure_ascii=False, separators=(',', ':'))
     json.dump(mudancas, open(f'{out}/mudancas.json', 'w'), ensure_ascii=False, indent=1)
-    info = {'analise_inicio': r0, 'analise_fim': r0 + len(an_rows) - 1, 'conciliacao_inicio': c0,
-            'conciliacao_fim': c0 + len(cc_rows) - 1, 'novos': len(novos), 'status_ate_linha': last_an,
-            'copiar_formulas_analise_colunas': 'H,K,N,O,P,S:AE (da linha inicial para as demais)',
-            'copiar_formulas_conciliacao_colunas': 'K:L,M:O,R (da linha inicial para as demais)'}
+    info = {'analise_inicio': r0, 'analise_fim': r0 + len(an_rows) - 1, 'novos': len(novos),
+            'status_ate_linha': last_an,
+            'copiar_formulas_analise_colunas': 'H,K,N,O,P,S:AE (da linha inicial para as demais)'}
     json.dump(info, open(f'{out}/info.json', 'w'), ensure_ascii=False, indent=1)
 
     from collections import Counter
@@ -181,7 +155,7 @@ def main():
     linhas = [f"Relatório: {len(data)} pedidos de {datas[0]:%d/%m/%Y} a {datas[-1]:%d/%m/%Y}. Status: {dict(st)}",
               f"Já na ANÁLISE: {sum(1 for k in rel if k in an_ids)} de {len(an_ids)} (os que não vieram ficam como estão).",
               f"NOVOS para a ANÁLISE: {len(novos)} ({dict(Counter(d['Order Status'] for d in novos))}). "
-              f"Linhas {r0} a {r0 + len(novos) - 1}; CONCILIAÇÃO linhas {c0} a {c0 + len(novos) - 1}.",
+              f"Linhas {r0} a {r0 + len(novos) - 1}.",
               f"Pedidos antigos que viraram cancelado/devolvido: {len(mudancas)}"]
     for m in mudancas:
         linhas.append(f"  - {m['pedido']} (linha {m['linha_analise']}, SKU {m['sku']}): {m['status']} {m['tipo']}, reembolso R$ {m['reembolso']:.2f}")
