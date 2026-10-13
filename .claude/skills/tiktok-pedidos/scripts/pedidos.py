@@ -71,8 +71,11 @@ def formulas_analise(r):
              f'IF(ABS(vu-ROUNDDOWN(Z{r}*0,95;2))<0,02;"Vendido a R$ "&TEXT(vu;"#,##0.00")&": 5% abaixo do CONTROLE (R$ "&TEXT(Z{r};"#,##0.00")&"), desconto de campanha/promoção";'
              f'IF(AND(c>0;ABS(vu-IFERROR(INDEX({CAMP}!$K$6:$K$200;c);0))<0,6);'
              f'"Preço da campanha 10.10 (R$ "&TEXT(vu;"#,##0.00")&")";"Vendido a R$ "&TEXT(vu;"#,##0.00")&", "&IF(d<0;"abaixo";"acima")&" do CONTROLE (R$ "&TEXT(Z{r};"#,##0.00")&")"))));'
-             f'IF(AND(ISNUMBER(W{r});W{r}<0,1);"MARGEM ABAIXO DE 10%. ";"")&p&". Taxas estimadas pela regra (afiliado e GMV Max só aparecem no income)"'
-             f'&IF(AE{r}="SIM";". Produto no GMV Max: se a venda veio do anúncio, desconta ~5%";"")))'),
+             f'IF(AND(ISNUMBER(W{r});W{r}<0,1);"MARGEM ABAIXO DE 10%. ";"")&p&'
+             f'IF(LEFT(D{r};8)="ESTIMADO";". Taxas estimadas pela regra (afiliado e GMV Max só aparecem no income)"'
+             f'&IF(AE{r}="SIM";". Produto no GMV Max: se a venda veio do anúncio, desconta ~5%";"");'
+             f'IF(LEFT(D{r};4)="PAGO";". Taxas reais (income)";". Taxas do onhold")'
+             f'&IF(R{r}>0;". GMV Max R$ "&TEXT(R{r};"#,##0.00");"")&IF(Q{r}>0;". Afiliado R$ "&TEXT(Q{r};"#,##0.00");""))))'),
         30: f'=IF(COUNTIF({GMV}!$D$7:$D;F{r})>0;"SIM";"")',
     }
 

@@ -98,8 +98,9 @@ Fica dentro da tabela "TABELA TIKTOKSHOP_2".
 ### Aba CONCILIAÇÃO FINANCEIRA TIKTOK
 
 - Linhas 4 a 21: resumo das vendas (fórmulas sobre a ANÁLISE). Linhas 23 a 31: onde está o dinheiro (transferido, a receber, em devolução, sem extrato).
-- Linhas 33 a 36: transferências do TikTok (aba Pagamentos do income) × soma dos pedidos do pagamento. Col. G = caixinha para conferir no extrato do banco.
-- Linha 39 em diante: pedido a pedido. L = repasse esperado pela regra do CONTROLE; M = repasse do TikTok (real ou estimado); N = diferença. Inclui os pedidos cancelados que aparecem zerados nos extratos.
+- Linhas 33 a 40: transferências do TikTok (aba Pagamentos do income) × soma dos pedidos do pagamento (D = SUMIFS em M pelo ID do pagamento). Col. G = caixinha para conferir no extrato do banco. B24 (já transferido) = soma da col. C.
+- Linha 44 em diante: pedido a pedido (todos os pedidos do income por pedido e do onhold, inclusive cancelados zerados e ajustes como "Reembolso de logística"). L = repasse esperado pela regra do CONTROLE; M = repasse do TikTok (real ou estimado pelo onhold); N = diferença; R = linha na ANÁLISE; **S = margem real em %** = (M − K × 7,3% − custo da ANÁLISE col. T) ÷ K, com as cores da margem do CONTROLE.
+- **Só é preenchida com os demonstrativos financeiros** (income por pedido + onhold). Ao receber novos: trocar na ANÁLISE a col. D (situação) e N:R (taxas reais) e reescrever o bloco pedido a pedido e as transferências.
 - **Só é preenchida com os demonstrativos financeiros** (income por pedido, income resumo, onhold), nunca com o relatório de pedidos. B30 soma o repasse da ANÁLISE só dos pedidos que estão na conciliação; B31 mostra a diferença (pedidos que a ANÁLISE já marcou como cancelados/devolvidos e o financeiro ainda não).
 - Linhas 4 a 21 (resumo das vendas) somam a ANÁLISE inteira, inclusive pedidos ainda sem financeiro.
 
@@ -167,7 +168,7 @@ Use a skill `/tiktok-novos-produtos` (`.claude/skills/tiktok-novos-produtos/`): 
 - Kit 3 Pneu Chaoyang Phantom Wet (18280) aparece com estoque de 4.931 no Bling, o que parece erro de cadastro. Precisa ser conferido.
 - **GMV Max (anúncios):** cobrança por pedido = (pagamento do cliente + desconto do TikTok) ÷ ROI do anúncio. Apareceu em 08/10 nas bicicletas 23620 (R$ 11,85, ROI 17,5) e 23622 (R$ 10,53, ROI 19,7), cerca de 5% a 5,7% da venda. Não está no CONTROLE. O usuário precisa decidir se o CONTROLE considera esse custo ou se tira do GMV Max os produtos com margem perto de 10%.
 - Margem: comissão de afiliado (até 8,5%) não está no CONTROLE e derrubou várias vendas para baixo de 10%. O usuário precisa decidir se o CONTROLE passa a considerar afiliados.
-- Atualizar a ANÁLISE e a CONCILIAÇÃO a cada novo download dos relatórios (income, onhold e pedidos). Os 168 pedidos de 08/10 a 13/10 estão com taxas estimadas: falta o income/onhold deles.
+- Atualizar a ANÁLISE e a CONCILIAÇÃO a cada novo download dos relatórios (income, onhold e pedidos). Em 13/10 11:02 todos os 306 pedidos ficaram com taxas reais (income/onhold).
 - Bicicletas Nathor vendidas a R$ 197,51 (5% abaixo do CONTROLE) e R$ 207,40 (− R$ 0,50) entre 09/10 e 13/10, com margem de 6,4% e 9,9%. Elas não estão na lista da CAMPANHAS TIKTOK: confirmar com o usuário de onde veio esse desconto.
 
 ## Histórico
@@ -209,3 +210,8 @@ Use a skill `/tiktok-novos-produtos` (`.claude/skills/tiktok-novos-produtos/`): 
   - Por engano, os 168 também foram gravados na CONCILIAÇÃO; a pedido do usuário isso foi desfeito (a conciliação voltou ao financeiro de 08/10). B31 mostra R$ 80,32: os 2 pedidos abaixo, que o financeiro ainda não registrou.
   - Margem estimada dos novos: 13,7%. 31 abaixo de 10%, todos bicicletas Nathor (R$ 197,51, R$ 207,40 e Balance a R$ 170,91).
   - Cancelado: 586481617546020579 (22808). Devolvido: 586417088865141927 (20966, reembolso de R$ 27,16). Os dois foram zerados na margem.
+- **13/10/2026 11:02 (demonstrativos financeiros: income por pedido, income resumo e onhold):**
+  - ANÁLISE: col. D com a situação financeira e N:R com as taxas reais nos 306 pedidos. O motivo (AD140:AD307) cita o GMV Max e o afiliado reais.
+  - GMV Max em 18 pedidos (R$ 198,96) e afiliado em 13 (R$ 191,89).
+  - CONCILIAÇÃO refeita: 6 transferências (R$ 1.560,50), todas iguais à soma dos pedidos. Pedido a pedido nas linhas 44 a 368, com a nova coluna S (margem real em %).
+  - Diferença de R$ 50,76 explicada: devolução do 586417088865141927 (SFP de R$ 3,24 cobrado e R$ 54,00 de reembolso de logística).
