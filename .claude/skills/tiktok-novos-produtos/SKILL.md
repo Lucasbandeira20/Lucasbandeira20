@@ -100,8 +100,10 @@ subagente por grupo de arquivos, que imprime o JSON compacto e chama `update_val
    L =IF(OR(J{r}="";K{r}="");"";J{r}-K{r})
    M =IF(K{r}="";"SEM PREÇO";IF(K{r}<'BASE PRODUTOS TIKTOK'!J{r};"OK";"OFERTA >= PREÇO ORIGINAL"))
    N ='BASE PRODUTOS TIKTOK'!V{r}
+   O  texto do lote, ex.: "LOTE 7 | <nome da campanha no TikTok>". Pergunte ao usuário o nome da campanha
+      depois que ele subir o Excel; até lá, "LOTE 7 | (nome da campanha a confirmar)".
    ```
-3. Leia `A{b0}:N{b1}` e confira: tudo "OK", IDs com 19 dígitos e preço com ponto.
+3. Leia `A{b0}:O{b1}` e confira: tudo "OK", IDs com 19 dígitos e preço com ponto.
 4. Cole como **valores** (`copyPaste` `PASTE_VALUES` sobre o próprio bloco). A aba nunca fica com fórmula.
 5. SKU fora da promoção (`fora` no `linhas.json`, ou sem custo): limpe C e escreve em M o motivo ("FORA: …").
 

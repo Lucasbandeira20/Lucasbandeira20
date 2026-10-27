@@ -75,6 +75,11 @@ Fica dentro da tabela "TABELA TIKTOKSHOP_2".
 - D e E ficam vazias, só com o cabeçalho.
 - Sempre **valores colados, nunca fórmula**.
 - As colunas G a M são só conferência. A coluna N é a DATA E HORA DE ENTRADA, igual à da BASE.
+- A coluna O é o LOTE / CAMPANHA NO TIKTOK (campanha de desconto em que o SKU está):
+  - LOTE 1 (linhas 2 a 162): PROMO-LUCASB-06.10.26-01.10.27;
+  - LOTE 2 (163 a 377): PREÇOFIXO-LUCASB-07.10.26-01.10.27;
+  - LOTE 3 (378 a 867): PREÇOFIXO-LUCASB-07.10.26-01.10.27 | LOTE3 (a "- LOTE 3" foi desativada);
+  - LOTE 4 (868 a 1107): … | LOTE4; LOTE 5 (1108 a 1131): … | LOTE5; LOTE 6 (1132 a 1162): … | LOTE6.
 - O Excel enviado ao usuário tem apenas A a E, montado sobre o modelo original.
 
 ### Aba CAMPANHAS TIKTOK
@@ -193,3 +198,5 @@ Use a skill `/tiktok-novos-produtos` (`.claude/skills/tiktok-novos-produtos/`): 
   - Resultado: 23 vendem bem no TikTok, 46 têm margem para acelerar (13 com estoque para menos de 30 dias), 14 sem margem para baixar e 17 não anunciados.
   - Fora por estoque ≤ 0: Selim GTA Comfort 22800, Mova Way 4.0 23303, Cadeado Articulado GTA 23132, Freio Altus traseiro 12735, cubo TH390 32F, BB52 23427 e BB-MT501 18451.
   - Estoques muito altos de pneus Chaoyang e pares (ex.: 016855 com 14.882, par 17816 com 7.441) parecem erro de cadastro, como o 18280.
+- **27/10/2026 (PROMOÇÕES, coluna O):** nova coluna LOTE / CAMPANHA NO TIKTOK, com o nome da campanha de cada lote (lotes 1 a 6, pela data de entrada da coluna N). Cupons e ofertas relâmpago encerradas não entram.
+
