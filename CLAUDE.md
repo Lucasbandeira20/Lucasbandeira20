@@ -90,12 +90,12 @@ Fica dentro da tabela "TABELA TIKTOKSHOP_2".
 ### Aba TOP 100 BLING x TIKTOK
 
 - Só análise: mostra o que acelerar no TikTok. **Não altera o CONTROLE.**
-- Fonte: relatório de vendas do Bling exportado pelo usuário (Data, Cliente, Produto, Quantidade, Venda Líquida; **sem SKU**). Últimos 30 dias, variações agrupadas pelo nome do pai (corta o nome em " Cor:", " Tamanho:", " Tamanho do Quadro:" etc.).
-- Nome → SKU: pelo nome no CONTROLE (col. B); se não achar, `listProducts` com `nome`. Estoque: `listProducts` com `codigos`. Só entram produtos com estoque > 0.
-- D2 = vendas mínimas no TikTok para "boa venda" (5 un. em 30 dias). D3 = margem mínima para baixar preço ou entrar em campanha (15%). Os dois são editáveis.
-- Col. K = linha no CONTROLE; L, M e N (preço, custo, margem) são fórmulas que buscam no CONTROLE. O = preço mínimo com margem de 10% (preço redondo, calculado). P, Q, R, S e T são fórmulas.
-- Classificação (col. S), cor da linha por formatação condicional: verde = vende bem no TikTok; azul = acelerar, tem margem; vermelho = sem margem para baixar; cinza = não anunciado.
-- Vendas TikTok (col. I) vêm da aba ANÁLISE MARGEM VENDAS TIKTOK, sem cancelados (valor colado em 27/10/2026).
+- Fonte: relatório de vendas do Bling exportado pelo usuário (Data, Cliente, Produto, Quantidade, Venda Líquida; **sem SKU**). Usar **o período inteiro do relatório** (hoje 01/08 a 27/10/2026), com uma coluna extra para os últimos 30 dias. Variações agrupadas pelo nome do pai (corta o nome em " Cor:", " Tamanho:", " Tamanho do Quadro:" etc.).
+- **Nome → SKU e estoque: sempre pelo Bling** (`listProducts` com `nome`, que busca pelo começo do nome; use prefixos curtos como "Pedivela", "Suspensão" para trazer vários de uma vez). Produto com variação: o pai (formato V) dá o SKU pai; o estoque é a soma das variações. Nome antigo e nome novo do mesmo produto (ex.: Athor Mist) são somados. Só entram produtos com estoque > 0. O CONTROLE só é usado depois, pelo SKU, para preço, custo e margem.
+- D2 = vendas mínimas no TikTok para "boa venda" (5 un.). D3 = margem mínima para baixar preço ou entrar em campanha (15%). D4 = cobertura mínima de estoque para acelerar (30 dias). Os três são editáveis.
+- Col. I = cobertura de estoque em dias (estoque ÷ venda média diária dos últimos 30 dias no Bling). Col. M = linha no CONTROLE; N, O e P (preço, custo, margem) são fórmulas que buscam no CONTROLE. Q = preço mínimo com margem de 10% (preço redondo, calculado). I, L, N a P e R a V são fórmulas.
+- Classificação (col. U), cor da linha por formatação condicional: verde = vende bem no TikTok; azul = acelerar, tem margem; vermelho = sem margem para baixar; cinza = não anunciado. Cobertura abaixo de D4 fica laranja e a ação sugerida manda repor antes de acelerar.
+- Vendas TikTok (col. K) vêm da aba ANÁLISE MARGEM VENDAS TIKTOK, sem cancelados (valor colado em 27/10/2026).
 
 ## Regras de preço
 
@@ -189,8 +189,7 @@ Use a skill `/tiktok-novos-produtos` (`.claude/skills/tiktok-novos-produtos/`): 
   - Saíram do TikTok: 6 Nathor Aro 12 Personagens e os 5 anúncios duplicados de selins.
   - Promoção e Excel com os 31 novos (PROMOÇÕES, linhas 1132 a 1162).
 - **27/10/2026 (aba TOP 100 BLING x TIKTOK):**
-  - Relatório de vendas do Bling de 01/08 a 27/10/2026 (40.813 linhas); ranking dos últimos 30 dias (28/09 a 27/10).
-  - 100 produtos pai com estoque: 22 vendem bem no TikTok, 49 têm margem para acelerar, 13 sem margem para baixar e 16 não anunciados (bicicletas e alguns itens que estão no CONTROLE mas não na BASE).
-  - Fora por estoque ≤ 0: 22800, 20966, 23303, 014976, BB52, cubo TH240 36F e óleo Algoo spray. Sem cadastro achado: Athor Mist Aro 20 e Kenda K1036.
+  - Relatório de vendas do Bling de 01/08 a 27/10/2026 (40.813 linhas, 71.060 unidades). Ranking pelo período inteiro, com SKU e estoque buscados no Bling pelo nome.
+  - Resultado: 23 vendem bem no TikTok, 46 têm margem para acelerar (13 com estoque para menos de 30 dias), 14 sem margem para baixar e 17 não anunciados.
+  - Fora por estoque ≤ 0: Selim GTA Comfort 22800, Mova Way 4.0 23303, Cadeado Articulado GTA 23132, Freio Altus traseiro 12735, cubo TH390 32F, BB52 23427 e BB-MT501 18451.
   - Estoques muito altos de pneus Chaoyang e pares (ex.: 016855 com 14.882, par 17816 com 7.441) parecem erro de cadastro, como o 18280.
-
