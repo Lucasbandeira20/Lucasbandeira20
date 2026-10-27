@@ -13,7 +13,7 @@ Regras, colunas e histórico estão no `CLAUDE.md` da raiz e na aba **REGRAS E P
 - **Nunca grave na CONCILIAÇÃO FINANCEIRA TIKTOK com este relatório.** Ele é só de vendas. A CONCILIAÇÃO só é preenchida quando o usuário mandar os demonstrativos financeiros (income por pedido, income resumo, onhold). Pedido cancelado/devolvido também não muda nada lá: a conciliação muda quando o financeiro mostrar.
 - O relatório de pedidos **não traz taxas**. Comissão, SFP 6% e taxa por item dos pedidos novos ficam como **fórmula pela regra** (colunas N, O, P). Afiliado e GMV Max só aparecem no income/onhold: quando o usuário mandar esses relatórios, troque N:R pelos valores reais e a coluna D pela situação financeira.
 - O relatório tem CPF, endereço e telefone: **nunca copie esses campos** para a planilha.
-- Pasta do lote: `$L = $SCRATCH/pedidos_AAAAMMDD`. Copie o .xlsx para lá. Scripts com `python3 -I`.
+- Pasta do lote: `$L = $SCRATCH/pedidos_AAAAMMDD`. Copie o .xlsx ou .csv para lá (o script aceita os dois). Scripts com `python3 -I`.
 - Mantenha o usuário informado com frases curtas entre as etapas.
 
 ## Passo 1: ler o que já está na planilha
@@ -32,7 +32,7 @@ Pedidos antigos que não vierem no arquivo (relatório parcial) ficam como estã
 ## Passo 3: gravar na ANÁLISE
 1. `update_formulas` de cada `analise_novos_NN.json` a partir de `A<analise_inicio>` (top-left só; 40 linhas por parte).
    A 1ª linha nova leva todas as fórmulas; as outras vêm com `null` nas colunas de fórmula.
-2. Um `update_spreadsheet` com:
+2. Um `update_spreadsheet` com (se a aba tiver filtro ativo, o copyPaste falha com "intervalo com uma linha filtrada": use `repeatCell` com a fórmula da 2ª linha nova em cada coluna, que ajusta as referências, e `repeatCell` com o formato; não mexa no filtro do usuário):
    - `copyPaste PASTE_FORMAT` da última linha antiga (A:AD) para as novas;
    - `copyPaste PASTE_FORMULA` da 1ª linha nova para as demais nas colunas H, K, N:P e S:AE (índices 7, 10, 13–15, 18–30).
 3. Status: `update_formulas` de `analise_status_C.json` em `C2` (atualiza "Enviado / Entregue" etc. das linhas antigas).

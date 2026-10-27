@@ -169,7 +169,7 @@ Use a skill `/tiktok-novos-produtos` (`.claude/skills/tiktok-novos-produtos/`): 
 - Kit 3 Pneu Chaoyang Phantom Wet (18280) aparece com estoque de 4.931 no Bling, o que parece erro de cadastro. Precisa ser conferido.
 - **GMV Max (anúncios):** cobrança por pedido = (pagamento do cliente + desconto do TikTok) ÷ ROI do anúncio. Apareceu em 08/10 nas bicicletas 23620 (R$ 11,85, ROI 17,5) e 23622 (R$ 10,53, ROI 19,7), cerca de 5% a 5,7% da venda. Não está no CONTROLE. O usuário precisa decidir se o CONTROLE considera esse custo ou se tira do GMV Max os produtos com margem perto de 10%.
 - Margem: comissão de afiliado (até 8,5%) não está no CONTROLE e derrubou várias vendas para baixo de 10%. O usuário precisa decidir se o CONTROLE passa a considerar afiliados.
-- Atualizar a ANÁLISE e a CONCILIAÇÃO a cada novo download dos relatórios (income, onhold e pedidos). Em 13/10 11:02 todos os 306 pedidos ficaram com taxas reais (income/onhold).
+- Atualizar a ANÁLISE e a CONCILIAÇÃO a cada novo download dos relatórios (income, onhold e pedidos). Em 13/10 11:02 todos os 306 pedidos ficaram com taxas reais (income/onhold). Os 289 pedidos de 13/10 a 27/10 (linhas 308 a 596) estão com taxas estimadas: falta o income/onhold deles. 21627 precisa entrar no CONTROLE.
 - Bicicletas Nathor vendidas a R$ 197,51 (5% abaixo do CONTROLE) e R$ 207,40 (− R$ 0,50) entre 09/10 e 13/10, com margem de 6,4% e 9,9%. Elas não estão na lista da CAMPANHAS TIKTOK: confirmar com o usuário de onde veio esse desconto.
 
 ## Histórico
@@ -216,3 +216,8 @@ Use a skill `/tiktok-novos-produtos` (`.claude/skills/tiktok-novos-produtos/`): 
   - GMV Max em 18 pedidos (R$ 198,96) e afiliado em 13 (R$ 191,89).
   - CONCILIAÇÃO refeita: 6 transferências (R$ 1.560,50), todas iguais à soma dos pedidos. Pedido a pedido nas linhas 44 a 368, com a nova coluna S (margem real em %).
   - Diferença de R$ 50,76 explicada: devolução do 586417088865141927 (SFP de R$ 3,24 cobrado e R$ 54,00 de reembolso de logística).
+- **27/10/2026 10:01 (pedidos em CSV, comando /tiktok-pedidos):**
+  - Relatório completo com 882 pedidos (26/09 a 27/10). 289 linhas novas na ANÁLISE (308 a 596; 272 enviados + 17 a enviar), com taxas estimadas pela regra.
+  - Margem estimada dos novos: 15,4%. 5 abaixo de 10% (3 bikes Nathor, 21303 e 23110 abaixo do CONTROLE). 21627 (Bomba Calibrador Suspensão Wild) não está no CONTROLE.
+  - 17 pedidos antigos zerados: 5 cancelados e 12 devolvidos (9 do guidão 20966).
+  - A ANÁLISE tem um filtro do usuário na col. F (até a linha 307): copyPaste falha ("intervalo com uma linha filtrada"). Use `repeatCell` com a fórmula da 1ª linha nova (as referências se ajustam) e com o formato. Não mexa no filtro.

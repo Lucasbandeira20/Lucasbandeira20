@@ -4,7 +4,7 @@ ANÁLISE MARGEM VENDAS TIKTOK e gera os payloads de gravação.
 O relatório de pedidos é só de VENDAS: ele alimenta apenas a ANÁLISE. A CONCILIAÇÃO FINANCEIRA
 só é preenchida com os demonstrativos financeiros (income / onhold), nunca por este script.
 
-Uso: python3 -I pedidos.py <pedidos.xlsx> <analise_AD.json> <pasta_saida>
+Uso: python3 -I pedidos.py <pedidos.xlsx ou .csv> <analise_AD.json> <pasta_saida>
 
 - analise_AD.json = get_values de 'ANÁLISE MARGEM VENDAS TIKTOK'!A1:D3000 (salvo com salvar_resultado.py)
 
@@ -16,6 +16,7 @@ Saídas na pasta:
 - info.json               linhas de início, quantidades e intervalos de cópia de fórmulas
 O relatório pode ser do mês completo ou parcial: pedidos que não vierem no arquivo continuam como estão.
 """
+import csv
 import datetime
 import json
 import os
@@ -87,8 +88,14 @@ def chunks(rows, n=40):
 def main():
     xlsx, an_p, out = sys.argv[1:4]
     os.makedirs(out, exist_ok=True)
-    ws = openpyxl.load_workbook(xlsx, data_only=True).worksheets[0]
-    rows = [r for r in ws.iter_rows(values_only=True) if any(c not in (None, '') for c in r)]
+    if xlsx.lower().endswith('.csv'):
+        # o TikTok também exporta em CSV: mesmas colunas, com tabulações no fim de alguns campos
+        with open(xlsx, encoding='utf-8-sig', newline='') as f:
+            rows = [[c.strip() or None for c in r] for r in csv.reader(f)]
+        rows = [r for r in rows if any(r)]
+    else:
+        ws = openpyxl.load_workbook(xlsx, data_only=True).worksheets[0]
+        rows = [r for r in ws.iter_rows(values_only=True) if any(c not in (None, '') for c in r)]
     h = list(rows[0])
     data = [dict(zip(h, r)) for r in rows[1:] if str(r[0]).isdigit()]
     rel = {str(d['Order ID']): d for d in data}
@@ -128,6 +135,7 @@ def main():
 
     an_rows = []
     r0 = last_an + 1
+    vistos = set()  # pedido com vários SKUs: o valor pago pelo cliente (total do pedido) fica só na 1ª linha
     for i, d in enumerate(novos):
         q = int(d['Quantity'])
         cheio = brl(d['SKU Subtotal Before Discount'])
@@ -137,8 +145,9 @@ def main():
         status = f"{d['Order Status']} / {d['Order Substatus'] or ''}".strip(' /')
         row = [dt(d['Created Time']).strftime('%d/%m/%Y %H:%M'), "'" + str(d['Order ID']), status,
                'ESTIMADO (sem extrato)', prod, "'" + str(d['Seller SKU']), q, None, cheio, dl, None,
-               brl(d['SKU Platform Discount']), brl(d['Order Amount']), None, None, None, 0, 0,
+               brl(d['SKU Platform Discount']), 0 if str(d['Order ID']) in vistos else brl(d['Order Amount']), None, None, None, 0, 0,
                None, None, None, None, None, None, None, None, None, None, None, None, None]
+        vistos.add(str(d['Order ID']))
         if i == 0:
             for k, v in formulas_analise(r0).items():
                 row[k] = v
@@ -146,6 +155,7 @@ def main():
 
     for i, ch in enumerate(chunks(an_rows)):
         json.dump(ch, open(f'{out}/analise_novos_{i:02d}.json', 'w'), ensure_ascii=False, separators=(',', ':'))
+    json.dump(col_c, open(f'{out}/analise_status_C.json', 'w'), ensure_ascii=False, separators=(',', ':'))
     json.dump(mudancas, open(f'{out}/mudancas.json', 'w'), ensure_ascii=False, indent=1)
     info = {'analise_inicio': r0, 'analise_fim': r0 + len(an_rows) - 1, 'novos': len(novos),
             'status_ate_linha': last_an,
