@@ -98,9 +98,9 @@ Fica dentro da tabela "TABELA TIKTOKSHOP_2".
 - Fonte: relatório de vendas do Bling exportado pelo usuário (Data, Cliente, Produto, Quantidade, Venda Líquida; **sem SKU**). Usar **o período inteiro do relatório** (hoje 01/08 a 27/10/2026), com uma coluna extra para os últimos 30 dias. Variações agrupadas pelo nome do pai (corta o nome em " Cor:", " Tamanho:", " Tamanho do Quadro:" etc.).
 - **Nome → SKU e estoque: sempre pelo Bling** (`listProducts` com `nome`, que busca pelo começo do nome; use prefixos curtos como "Pedivela", "Suspensão" para trazer vários de uma vez). Produto com variação: o pai (formato V) dá o SKU pai; o estoque é a soma das variações. Nome antigo e nome novo do mesmo produto (ex.: Athor Mist) são somados. Só entram produtos com estoque > 0. O CONTROLE só é usado depois, pelo SKU, para preço, custo e margem.
 - D2 = vendas mínimas no TikTok para "boa venda" (5 un.). D3 = margem mínima para baixar preço ou entrar em campanha (15%). D4 = cobertura mínima de estoque para acelerar (30 dias). Os três são editáveis.
-- Col. I = cobertura de estoque em dias (estoque ÷ venda média diária dos últimos 30 dias no Bling). Col. M = linha no CONTROLE; N, O e P (preço, custo, margem) são fórmulas que buscam no CONTROLE. Q = preço mínimo com margem de 10% (preço redondo, calculado). I, L, N a P e R a V são fórmulas.
-- Classificação (col. U), cor da linha por formatação condicional: verde = vende bem no TikTok; azul = acelerar, tem margem; vermelho = sem margem para baixar; cinza = não anunciado. Cobertura abaixo de D4 fica laranja e a ação sugerida manda repor antes de acelerar.
-- Vendas TikTok (col. K) vêm da aba ANÁLISE MARGEM VENDAS TIKTOK, sem cancelados (valor colado em 27/10/2026).
+- Col. I = cobertura de estoque em dias (estoque ÷ venda média diária dos últimos 30 dias no Bling). Col. J = anunciado no TikTok. Col. K = LOTE / CAMPANHA NO TIKTOK (vem da coluna O da PROMOÇÕES, pelo SKU; "—" se não está em promoção). Col. N = linha no CONTROLE; O, P e Q (preço, custo, margem) são fórmulas que buscam no CONTROLE. R = preço mínimo com margem de 10% (preço redondo, calculado). I, M, O a Q e S a W são fórmulas.
+- Classificação (col. V), cor da linha por formatação condicional: verde = vende bem no TikTok; azul = acelerar, tem margem; vermelho = sem margem para baixar; cinza = não anunciado. Cobertura abaixo de D4 fica laranja e a ação sugerida manda repor antes de acelerar.
+- Vendas TikTok (col. L) vêm da aba ANÁLISE MARGEM VENDAS TIKTOK, sem cancelados (valor colado em 27/10/2026).
 
 ## Regras de preço
 
@@ -199,4 +199,4 @@ Use a skill `/tiktok-novos-produtos` (`.claude/skills/tiktok-novos-produtos/`): 
   - Fora por estoque ≤ 0: Selim GTA Comfort 22800, Mova Way 4.0 23303, Cadeado Articulado GTA 23132, Freio Altus traseiro 12735, cubo TH390 32F, BB52 23427 e BB-MT501 18451.
   - Estoques muito altos de pneus Chaoyang e pares (ex.: 016855 com 14.882, par 17816 com 7.441) parecem erro de cadastro, como o 18280.
 - **27/10/2026 (PROMOÇÕES, coluna O):** nova coluna LOTE / CAMPANHA NO TIKTOK, com o nome da campanha de cada lote (lotes 1 a 6, pela data de entrada da coluna N). Cupons e ofertas relâmpago encerradas não entram.
-
+- **27/10/2026 (TOP 100, coluna K):** nova coluna LOTE / CAMPANHA NO TIKTOK, ao lado de "Anunciado no TikTok": 69 produtos no lote 1, 10 no lote 2, 1 no lote 3, 1 no lote 4, 2 no lote 5 e 17 não anunciados.
