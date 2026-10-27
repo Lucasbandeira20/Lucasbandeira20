@@ -19,6 +19,7 @@ Fonte principal das regras: aba **REGRAS E PROCESSO TIKTOK** da planilha abaixo.
 | Regra Especial Shopee AGO2026 | 1761605422 | Referência principal de preço Shopee |
 | CAMPANHAS TIKTOK | 1765579766 | Seleção de produtos para campanhas com cupom (análise, não altera o CONTROLE) |
 | ANÁLISE MARGEM VENDAS TIKTOK | 1935682352 | Margem real das vendas (a definir) |
+| TOP 100 BLING x TIKTOK | 2026102701 | Os 100 produtos pai mais vendidos no Bling x vendas e margem no TikTok (só análise) |
 
 ### Aba CONTROLE ANÚNCIOS TIKTOKSHOP 03.10
 
@@ -85,6 +86,16 @@ Fica dentro da tabela "TABELA TIKTOKSHOP_2".
 - Lista atual (escolhida pelo usuário em 08/10/2026): linhas 6 a 37, com 32 SKUs ordenados por estoque (19572 e 19579 retirados a pedido). Os SKUs com estoque 0 (004460 e 22812) foram retirados. Col. P = estoque Bling. Col. Q = DATA E HORA DE ENTRADA na campanha (dd/mm/aaaa hh:mm; o lote atual é 08/10/2026 10:19). Itens que entrarem juntos recebem a mesma data e hora.
 - **Inscrição na campanha:** use o arquivo que o TikTok gera no painel (`..._batch_campaign_template_*.xlsx`), **com o mesmo nome e o mesmo formato**. Ele vem com todos os SKUs ativos e com o preço sugerido (preço atual − R$ 0,50) nas colunas de cada campanha. Apague as linhas que não entram e troque só os preços das colunas de campanha (texto com ponto). Não mexa no resto. Feito em 08/10/2026: 32 SKUs nas duas campanhas 10.10 (Flash Sale e Monthly Sale).
 - Preço hoje e custo são cópia do CONTROLE em 08/10/2026. Col. O = linha no CONTROLE.
+
+### Aba TOP 100 BLING x TIKTOK
+
+- Só análise: mostra o que acelerar no TikTok. **Não altera o CONTROLE.**
+- Fonte: relatório de vendas do Bling exportado pelo usuário (Data, Cliente, Produto, Quantidade, Venda Líquida; **sem SKU**). Últimos 30 dias, variações agrupadas pelo nome do pai (corta o nome em " Cor:", " Tamanho:", " Tamanho do Quadro:" etc.).
+- Nome → SKU: pelo nome no CONTROLE (col. B); se não achar, `listProducts` com `nome`. Estoque: `listProducts` com `codigos`. Só entram produtos com estoque > 0.
+- D2 = vendas mínimas no TikTok para "boa venda" (5 un. em 30 dias). D3 = margem mínima para baixar preço ou entrar em campanha (15%). Os dois são editáveis.
+- Col. K = linha no CONTROLE; L, M e N (preço, custo, margem) são fórmulas que buscam no CONTROLE. O = preço mínimo com margem de 10% (preço redondo, calculado). P, Q, R, S e T são fórmulas.
+- Classificação (col. S), cor da linha por formatação condicional: verde = vende bem no TikTok; azul = acelerar, tem margem; vermelho = sem margem para baixar; cinza = não anunciado.
+- Vendas TikTok (col. I) vêm da aba ANÁLISE MARGEM VENDAS TIKTOK, sem cancelados (valor colado em 27/10/2026).
 
 ## Regras de preço
 
@@ -177,3 +188,9 @@ Use a skill `/tiktok-novos-produtos` (`.claude/skills/tiktok-novos-produtos/`): 
   - 21992 (Unite Branco, linha 331) tinha venda igual ao cheio (R$ 1.899,00) e foi para R$ 1.499,90 (20%).
   - Saíram do TikTok: 6 Nathor Aro 12 Personagens e os 5 anúncios duplicados de selins.
   - Promoção e Excel com os 31 novos (PROMOÇÕES, linhas 1132 a 1162).
+- **27/10/2026 (aba TOP 100 BLING x TIKTOK):**
+  - Relatório de vendas do Bling de 01/08 a 27/10/2026 (40.813 linhas); ranking dos últimos 30 dias (28/09 a 27/10).
+  - 100 produtos pai com estoque: 22 vendem bem no TikTok, 49 têm margem para acelerar, 13 sem margem para baixar e 16 não anunciados (bicicletas e alguns itens que estão no CONTROLE mas não na BASE).
+  - Fora por estoque ≤ 0: 22800, 20966, 23303, 014976, BB52, cubo TH240 36F e óleo Algoo spray. Sem cadastro achado: Athor Mist Aro 20 e Kenda K1036.
+  - Estoques muito altos de pneus Chaoyang e pares (ex.: 016855 com 14.882, par 17816 com 7.441) parecem erro de cadastro, como o 18280.
+
