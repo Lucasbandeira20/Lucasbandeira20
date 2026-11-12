@@ -21,6 +21,7 @@ Fonte principal das regras: aba **REGRAS E PROCESSO TIKTOK** da planilha abaixo.
 | ANÁLISE MARGEM VENDAS TIKTOK | 1935682352 | Margem real de cada venda × CONTROLE |
 | CONCILIAÇÃO FINANCEIRA TIKTOK | 2026100801 | Resumo, transferências e repasse pedido a pedido |
 | GMV MAX TIKTOK | 2026100802 | Margem dos produtos da campanha GMV Max (análise, não altera o CONTROLE) |
+| 11.11-PROMO | 2026111101 | Margem dos itens da campanha 11.11 × CONTROLE (análise, não altera o CONTROLE) |
 
 ### Aba CONTROLE ANÚNCIOS TIKTOKSHOP 03.10
 
@@ -111,6 +112,14 @@ Fica dentro da tabela "TABELA TIKTOKSHOP_2".
 - M7:N = lista de IDs de produto da campanha GMV Max (enviada pelo usuário em 08/10/2026). A:E puxam da BASE todos os SKUs desses produtos (FILTER).
 - F e G = preço e margem do CONTROLE. H = custo GMV Max. I = margem com GMV Max (G − 5 p.p.). J = preço mínimo para 10% com GMV Max. K = situação.
 - Com ROI 20, o produto precisa de pelo menos 15% de margem no CONTROLE para ficar no GMV Max. Em 08/10/2026, 47 SKUs ficaram abaixo de 10% (bicicletas Nathor, Caloi Power Rex, Athor Brave Aro 20 e 22 pneus).
+
+### Aba 11.11-PROMO
+
+- Arquivo do TikTok `Processing_result_Campaign_prefill_template_*.xlsx` (linha 1 = aviso, linha 2 = cabeçalho). **Coluna G = preço da campanha.** D = SKU do vendedor.
+- Linhas 1 a 4: título, fonte e resumo (contagem por situação, margem média ponderada pelas vendas de 30 dias, quantos abaixo do CONTROLE, SKU ID repetido). Cabeçalho na linha 6; dados a partir da linha 7 (714 SKUs, até a 720).
+- A:J = dados colados do arquivo (IDs em texto). K:AE = fórmulas: K linha no CONTROLE | L custo | M preço CONTROLE | N margem CONTROLE | O comissão + taxa por item | P frete 6% | Q imposto | R custo total | S lucro | **T margem da campanha** | U dif. preço R$ | V dif. preço % | W dif. margem p.p. | X dif. lucro R$ | Y no GMV Max | Z margem com GMV Max | AA preço mínimo p/ 10% | AB idem com GMV Max | AC folga R$ | AD observação | AE situação.
+- Cores da margem (N, T, Z) iguais às do CONTROLE. Linhas 1 a 6 congeladas (e colunas A:D). Filtro no cabeçalho.
+- A skill "itens ativação em campanha" só deve ser criada depois que o usuário validar esta aba.
 
 ### Relatórios do TikTok usados
 
@@ -221,3 +230,6 @@ Use a skill `/tiktok-novos-produtos` (`.claude/skills/tiktok-novos-produtos/`): 
   - Margem estimada dos novos: 15,4%. 5 abaixo de 10% (3 bikes Nathor, 21303 e 23110 abaixo do CONTROLE). 21627 (Bomba Calibrador Suspensão Wild) não está no CONTROLE.
   - 17 pedidos antigos zerados: 5 cancelados e 12 devolvidos (9 do guidão 20966).
   - A ANÁLISE tem um filtro do usuário na col. F (até a linha 307): copyPaste falha ("intervalo com uma linha filtrada"). Use `repeatCell` com a fórmula da 1ª linha nova (as referências se ajustam) e com o formato. Não mexa no filtro.
+- **12/11/2026 (campanha 11.11, aba nova 11.11-PROMO):**
+  - 714 SKUs. Margem pelo preço da campanha: 478 OK (≥ 15%), 165 entre 10% e 15%, 35 abaixo de 10% e 35 que só caem abaixo de 10% com GMV Max. Margem média ponderada pelas vendas de 30 dias: 14,65%.
+  - 615 SKUs com preço da campanha = CONTROLE − R$ 0,50. 4 acima do CONTROLE (19029, 23355, 21027, 12737). 10 SKUs Nathor repetidos com preços diferentes. Aguardando validação para criar a skill.
