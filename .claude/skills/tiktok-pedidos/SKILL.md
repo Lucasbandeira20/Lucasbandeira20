@@ -27,6 +27,7 @@ Regras, colunas e histórico estão no `CLAUDE.md` da raiz e na aba **REGRAS E P
 
 Gera `resumo.txt`, `info.json` (linhas de início/fim), `analise_novos_NN.json`, `analise_status_C.json` e `mudancas.json`. Mostre o resumo ao usuário. Se não houver novos nem mudanças, pare.
 Novos = status Enviado, A ser enviado ou Concluído, sem cancelamento/devolução, que não estão na coluna B da ANÁLISE.
+Pedido de devolução sem reembolso (R$ 0 e 0 un. devolvidas) **não** conta como devolução: a venda continua valendo.
 Pedidos antigos que não vierem no arquivo (relatório parcial) ficam como estão.
 
 ## Passo 3: gravar na ANÁLISE
@@ -36,6 +37,7 @@ Pedidos antigos que não vierem no arquivo (relatório parcial) ficam como estã
    - `copyPaste PASTE_FORMAT` da última linha antiga (A:AD) para as novas;
    - `copyPaste PASTE_FORMULA` da 1ª linha nova para as demais nas colunas H, K, N:P e S:AE (índices 7, 10, 13–15, 18–30).
 3. Status: `update_formulas` de `analise_status_C.json` em `C2` (atualiza "Enviado / Entregue" etc. das linhas antigas).
+   Para economizar, mande só o que mudou: range único `C2:C<fim>` com `[]` nas linhas iguais (linha vazia é pulada). O mesmo vale para os cancelados (`D<lin>:R<lin>` e `AD`). Não use `updateCells` com `{}`: apaga a célula.
 4. Para cada item de `mudancas.json` (cancelado ou devolvido):
    - ANÁLISE, linha `linha_analise`: `D:R` = `[situacao, null, null, 0, null, 0, 0, null, 0, 0, 0, 0, 0, 0, 0]`
      (D situação, G qtd 0, I/J/L:R zerados; H e K continuam fórmula) e `AD` com o motivo (data, quem cancelou, valor reembolsado).

@@ -117,6 +117,10 @@ def main():
         novo = f"{d['Order Status']} / {d['Order Substatus'] or ''}".strip(' /')
         col_c.append([novo])
         tipo = d.get('Cancelation/Return Type') or ''
+        # pedido de devolução sem reembolso (R$ 0 e 0 un. devolvidas): a venda continua valendo
+        if tipo == 'Return/Refund' and not brl(d.get('Order Refund Amount')) \
+                and str(d.get('Sku Quantity of return') or '0') == '0':
+            tipo = ''
         if d['Order Status'] == 'Cancelado' or tipo:
             sit = r[3] if len(r) > 3 else ''
             if sit.startswith(('CANCELADO', 'DEVOLVIDO')):
@@ -129,8 +133,15 @@ def main():
                 'situacao': 'CANCELADO' if d['Order Status'] == 'Cancelado' else 'DEVOLVIDO (reembolso)',
             })
 
+    def devolucao_real(d):
+        t = d.get('Cancelation/Return Type') or ''
+        if t == 'Return/Refund' and not brl(d.get('Order Refund Amount')) \
+                and str(d.get('Sku Quantity of return') or '0') == '0':
+            return False
+        return bool(t)
+
     novos = [d for d in data if str(d['Order ID']) not in an_ids and d['Order Status'] in VALIDOS
-             and not d.get('Cancelation/Return Type')]
+             and not devolucao_real(d)]
     novos.sort(key=lambda d: dt(d['Created Time']))
 
     an_rows = []
