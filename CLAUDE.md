@@ -56,6 +56,13 @@ Fica dentro da tabela "TABELA TIKTOKSHOP_2".
 | Y | Análise |
 | Z | Preço ML (ref) |
 | AA | Preço Shopee (ref) |
+| AC | Custo anterior (antes da atualização de 24/11/2026), só nos SKUs que mudaram |
+| AD | Variação do custo R$ (ARRAYFORMULA em AD2) |
+| AE | Preço na PROMOÇÕES (pelo SKU, ARRAYFORMULA) |
+| AF | Margem na promoção em % com o custo atual (ARRAYFORMULA) |
+| AG | Alerta: custo subiu e margem < 10% no CONTROLE ou na promoção (B:C e AG ficam vermelhos) |
+
+- AC:AG ficam fora da tabela. A aba tem um **filtro do usuário na coluna B**: `repeatCell` e `copyPaste` só atingem as linhas visíveis. Para colunas inteiras, use uma ARRAYFORMULA na linha 2 ou `update_formulas`/`updateCells` (estes gravam em linhas ocultas).
 
 - Linhas laranja são divisórias.
 - Faixas amarelas separam os lotes de produtos criados: linha 414 (20 produtos de 06/10/2026 14:15), linha 435 (134 produtos do lote 06/10/2026 22:35, linhas 436 a 569) linha 570 (430 produtos do lote 07/10/2026 13:42, linhas 571 a 1000) linha 1001 (188 produtos do lote 07/10/2026 18:44, linhas 1002 a 1189) e linha 1190 (12 produtos do lote 07/10/2026 23:39, linhas 1191 a 1202). A tabela vai até a linha 1281: expanda antes de um lote grande.
@@ -179,6 +186,7 @@ Use a skill `/tiktok-novos-produtos` (`.claude/skills/tiktok-novos-produtos/`): 
 - **GMV Max (anúncios):** cobrança por pedido = (pagamento do cliente + desconto do TikTok) ÷ ROI do anúncio. Apareceu em 08/10 nas bicicletas 23620 (R$ 11,85, ROI 17,5) e 23622 (R$ 10,53, ROI 19,7), cerca de 5% a 5,7% da venda. Não está no CONTROLE. O usuário precisa decidir se o CONTROLE considera esse custo ou se tira do GMV Max os produtos com margem perto de 10%.
 - Margem: comissão de afiliado (até 8,5%) não está no CONTROLE e derrubou várias vendas para baixo de 10%. O usuário precisa decidir se o CONTROLE passa a considerar afiliados.
 - Atualizar a ANÁLISE e a CONCILIAÇÃO a cada novo download dos relatórios (income, onhold e pedidos). Em 13/10 11:02 todos os 306 pedidos ficaram com taxas reais (income/onhold). Os pedidos de 13/10 a 24/11 (linhas 308 a 1666) estão com taxas estimadas: falta o income/onhold deles. 21627 (vendido em outubro) precisa entrar no CONTROLE.
+- Repassar para a PROMOÇÕES os preços que o usuário mudou à mão no CONTROLE (Nathor: bikes Aro 12, triciclos e Balance) e decidir o novo preço dos 9 SKUs em alerta de custo (col. AG do CONTROLE).
 - Bikes Nathor Aro 12 Personagens (23636, 23634, 23631) vendidas a R$ 210,29–210,72 (15% abaixo do CONTROLE de R$ 247,90) em 66 pedidos de novembro, com margem estimada de −2,2%. Confirmar com o usuário de onde vem esse desconto.
 - Bicicletas Nathor vendidas a R$ 197,51 (5% abaixo do CONTROLE) e R$ 207,40 (− R$ 0,50) entre 09/10 e 13/10, com margem de 6,4% e 9,9%. Elas não estão na lista da CAMPANHAS TIKTOK: confirmar com o usuário de onde veio esse desconto.
 
@@ -240,3 +248,8 @@ Use a skill `/tiktok-novos-produtos` (`.claude/skills/tiktok-novos-produtos/`): 
   - 40 pedidos antigos zerados: 25 cancelados (pacote perdido / falha de entrega) e 15 devolvidos.
   - Pedido de devolução **sem reembolso** (R$ 0 e 0 un. devolvidas) não é devolução: a venda continua valendo (11 casos). O script já trata isso.
   - Para gravar linhas esparsas (status, cancelados), use `update_formulas` num range único com `[]` nas linhas que não mudam: elas são puladas. Em `updateCells`, uma célula vazia `{}` apaga o valor.
+- **24/11/2026 (atualização de custo do CONTROLE):**
+  - Custo do fornecedor padrão no Bling (kits pela soma dos componentes) para 1.184 de 1.212 SKUs. 117 mudaram (54 subiram, 63 caíram); col. E atualizada e o custo anterior guardado em AC.
+  - Sem atualização: 28 sapatilhas Shimano MX100 (só existem como excluídas no Bling) e 014055 (custo 0 no Bling).
+  - 9 alertas (custo subiu e margem < 10%): pneus CST 23555, 23556, 23561, 23562, 23557, 23558; 22617; 23190; 22799.
+  - SKUs com código diferente no Bling: 8560 → 08560, 16855 → 016855, 004302 → 4302, 001219 → 1219, 004459 → 4459, 014764 → 14764.
