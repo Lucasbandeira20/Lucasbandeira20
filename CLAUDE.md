@@ -60,7 +60,7 @@ Fica dentro da tabela "TABELA TIKTOKSHOP_2".
 | AD | Variação do custo R$ (ARRAYFORMULA em AD2) |
 | AE | Preço na PROMOÇÕES (pelo SKU, ARRAYFORMULA) |
 | AF | Margem na promoção em % com o custo atual (ARRAYFORMULA) |
-| AG | Alerta: custo subiu e margem < 10% no CONTROLE ou na promoção (B:C e AG ficam vermelhos) |
+| AG | Alerta: custo subiu e margem < 10% no CONTROLE ou na promoção (só texto; o preenchimento vermelho foi retirado a pedido em 24/11) |
 | AH | LOTE / CAMPANHA NO TIKTOK, puxado da col. O da PROMOÇÕES pelo SKU (ARRAYFORMULA em AH2); "NÃO ESTÁ NA PROMOÇÕES" se o SKU não está lá |
 
 - AC:AG ficam fora da tabela. A aba tem um **filtro do usuário na coluna B**: `repeatCell` e `copyPaste` só atingem as linhas visíveis. Para colunas inteiras, use uma ARRAYFORMULA na linha 2 ou `update_formulas`/`updateCells` (estes gravam em linhas ocultas).
