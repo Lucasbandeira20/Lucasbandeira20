@@ -22,6 +22,7 @@ Fonte principal das regras: aba **REGRAS E PROCESSO TIKTOK** da planilha abaixo.
 | CONCILIAÇÃO FINANCEIRA TIKTOK | 2026100801 | Resumo, transferências e repasse pedido a pedido |
 | GMV MAX TIKTOK | 2026100802 | Margem dos produtos da campanha GMV Max (análise, não altera o CONTROLE) |
 | 11.11-PROMO | 2026111101 | Margem dos itens da campanha 11.11 × CONTROLE (análise, não altera o CONTROLE) |
+| HISTÓRICO CUSTO TIKTOK | 2026112501 | Log da rotina diária de custo (B2 = última execução, D2 = situação; dados a partir da linha 5) |
 
 ### Aba CONTROLE ANÚNCIOS TIKTOKSHOP 03.10
 
@@ -159,6 +160,12 @@ Fica dentro da tabela "TABELA TIKTOKSHOP_2".
   - Margem = 1 − (custo + taxas + imposto + frete) / preço.
 - **Promoção:** a oferta precisa ser **menor** que o preço original. Se nem no preço cheio a margem chega a 10%, o SKU fica fora da promoção (ex.: 12022). Se o preço de venda for igual ao cheio, ajuste para margem de 20% (aplicado em 9301, 22309 e 20444).
 - **Limite do Bling:** a API tem cota diária (zera à meia-noite) e limite por segundo. Consulte em lotes, com pausas.
+
+## Rotina diária de custo (tarefa agendada)
+
+- Skill `/tiktok-custo-diario` (`.claude/skills/tiktok-custo-diario/`). Roda sozinha por volta de **1h50** (horário de Brasília), com reforço às 4h50 se a 1ª rodada não terminar, na nuvem (não depende do computador).
+- Confere no Bling o custo dos SKUs do CONTROLE (custo do cadastro = fornecedor padrão; kits pela composição em `dados/mapa.json`), grava os que mudaram (E = novo, AC = anterior), registra na aba HISTÓRICO CUSTO TIKTOK e manda e-mail pelo Gmail para lbandeira2029@gmail.com (cc lbandeira2029.cursos@gmail.com) com os SKUs que precisam de reajuste (custo subiu e margem < 10% no CONTROLE ou na PROMOÇÕES) e o preço mínimo para 10%.
+- Nunca altera preço. Depois de uma carga de produtos novos, acrescente os SKUs novos em `dados/mapa.json`.
 
 ## Processo quando chegar uma nova planilha de produtos do TikTok
 
