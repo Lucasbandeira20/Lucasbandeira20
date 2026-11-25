@@ -163,7 +163,7 @@ Fica dentro da tabela "TABELA TIKTOKSHOP_2".
 
 ## Rotina diária de custo (tarefa agendada)
 
-- Skill `/tiktok-custo-diario` (`.claude/skills/tiktok-custo-diario/`). Roda sozinha por volta de **1h50** (horário de Brasília), com reforço às 4h50 se a 1ª rodada não terminar, na nuvem (não depende do computador).
+- Skill `/tiktok-custo-diario` (`.claude/skills/tiktok-custo-diario/`). Roda sozinha por volta de **1h50** (horário de Brasília), com reforço às 4h50 se a 1ª rodada não terminar, na nuvem (não depende do computador). A tarefa agendada (trig_01MYZGMJFktmjFHBDGSFZQrs) dispara dentro da sessão de trabalho do Claude, que tem os conectores Bling, Google Sheets e Gmail; criada numa sessão nova, ela ficaria sem conectores.
 - Confere no Bling o custo dos SKUs do CONTROLE (custo do cadastro = fornecedor padrão; kits pela composição em `dados/mapa.json`), grava os que mudaram (E = novo, AC = anterior), registra na aba HISTÓRICO CUSTO TIKTOK e manda e-mail pelo Gmail para lbandeira2029@gmail.com (cc lbandeira2029.cursos@gmail.com) com os SKUs que precisam de reajuste (custo subiu e margem < 10% no CONTROLE ou na PROMOÇÕES) e o preço mínimo para 10%.
 - Nunca altera preço. Depois de uma carga de produtos novos, acrescente os SKUs novos em `dados/mapa.json`.
 
