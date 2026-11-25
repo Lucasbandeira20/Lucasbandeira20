@@ -33,8 +33,11 @@ description: Baixa pelo navegador do computador do usuário (TikTok Shop Seller 
 3. **Gerar modelo**. Demora um pouco para carregar.
 4. Depois clicar em **Baixar** (arquivo `all_information_template*.xlsx` em Downloads).
 
-## Depois do download
-- Pedidos: rodar `/tiktok-pedidos` com o arquivo (só a ANÁLISE; nunca a CONCILIAÇÃO).
-- Produtos: comparar com a BASE PRODUTOS TIKTOK (`/tiktok-novos-produtos`, passo 1) e listar os SKUs novos no e-mail.
-  Não criar nada no CONTROLE nem na PROMOÇÕES sem o usuário confirmar.
-- Os arquivos têm dados pessoais de clientes (pedidos): não copiar CPF, endereço nem telefone para a planilha.
+## Depois do download (de dia, sem planilha: o trabalho pesado fica para a madrugada)
+1. Copie os dois arquivos do Downloads do computador para o container (pasta nova no scratchpad).
+2. `python3 -I .claude/skills/tiktok-relatorios-navegador/scripts/extrair.py <pedidos.csv> <produtos.zip|xlsx> <AAAAMMDD_HHMM>`
+   Gera em `entrada/` só as colunas usadas (pedidos **sem** CPF, nome, telefone, endereço; produtos com IDs, SKU, nome, preço).
+3. `git add .claude/skills/tiktok-relatorios-navegador/entrada && git commit` e `git push` na branch claude/brave-gates-3etn2o
+   (é assim que a rotina da madrugada recebe os arquivos).
+4. Não grave na planilha de dia. A rotina das 3h01 roda o `/tiktok-pedidos` (ANÁLISE) e compara os produtos com o CONTROLE.
+5. Se o download funcionou, não precisa e-mail de dia. Se falhou às 15h, mande o aviso descrito em "Quando roda".

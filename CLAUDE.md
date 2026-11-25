@@ -22,6 +22,8 @@ Fonte principal das regras: aba **REGRAS E PROCESSO TIKTOK** da planilha abaixo.
 | CONCILIAÇÃO FINANCEIRA TIKTOK | 2026100801 | Resumo, transferências e repasse pedido a pedido |
 | GMV MAX TIKTOK | 2026100802 | Margem dos produtos da campanha GMV Max (análise, não altera o CONTROLE) |
 | 11.11-PROMO | 2026111101 | Margem dos itens da campanha 11.11 × CONTROLE (análise, não altera o CONTROLE) |
+| RESUMO DIÁRIO TIKTOK | 2026112502 | Números de cada rotina da madrugada (canais, novos, custos, PROMOÇÕES, pedidos) |
+| PRODUTOS NOVOS FORA DO TIKTOK | 2026112503 | Lista reescrita toda madrugada (aba Produtos Novos do comercial × TikTok) |
 | HISTÓRICO CUSTO TIKTOK | 2026112501 | Log da rotina diária de custo (B2 = última execução, D2 = situação; dados a partir da linha 5) |
 
 ### Aba CONTROLE ANÚNCIOS TIKTOKSHOP 03.10
@@ -161,11 +163,13 @@ Fica dentro da tabela "TABELA TIKTOKSHOP_2".
 - **Promoção:** a oferta precisa ser **menor** que o preço original. Se nem no preço cheio a margem chega a 10%, o SKU fica fora da promoção (ex.: 12022). Se o preço de venda for igual ao cheio, ajuste para margem de 20% (aplicado em 9301, 22309 e 20444).
 - **Limite do Bling:** a API tem cota diária (zera à meia-noite) e limite por segundo. Consulte em lotes, com pausas.
 
-## Rotina diária de custo (tarefa agendada)
+## Rotinas agendadas
 
-- Skill `/tiktok-custo-diario` (`.claude/skills/tiktok-custo-diario/`). Roda sozinha por volta de **1h50** (horário de Brasília), com reforço às 4h50 se a 1ª rodada não terminar, na nuvem (não depende do computador). A tarefa agendada (trig_01MYZGMJFktmjFHBDGSFZQrs) dispara dentro da sessão de trabalho do Claude, que tem os conectores Bling, Google Sheets e Gmail; criada numa sessão nova, ela ficaria sem conectores.
-- Confere no Bling o custo dos SKUs do CONTROLE (custo do cadastro = fornecedor padrão; kits pela composição em `dados/mapa.json`), grava os que mudaram (E = novo, AC = anterior), registra na aba HISTÓRICO CUSTO TIKTOK e manda e-mail pelo Gmail para lbandeira2029@gmail.com (cc lbandeira2029.cursos@gmail.com) com os SKUs que precisam de reajuste (custo subiu e margem < 10% no CONTROLE ou na PROMOÇÕES) e o preço mínimo para 10%.
-- Nunca altera preço. Depois de uma carga de produtos novos, acrescente os SKUs novos em `dados/mapa.json`.
+- **Madrugada, 3h01 (reforço 5h01), sem navegador:** skill `/tiktok-custo-diario`. Custo no Bling → CONTROLE (E novo, AC anterior; log em HISTÓRICO CUSTO TIKTOK), preços que o usuário mudou à mão no CONTROLE → PROMOÇÕES (C, K, L e P = data da alteração; Excel FixedPriceWithSKU anexado), comparação de preço com Shopee e ML (só percentuais e o porquê; "mesmo preço" = até 1%), produtos novos fora do TikTok (aba PRODUTOS NOVOS FORA DO TIKTOK), pedidos baixados de dia → ANÁLISE, e um e-mail único para lbandeira2029@gmail.com (cc lbandeira2029.cursos@gmail.com). Números do dia na aba RESUMO DIÁRIO TIKTOK.
+- **Dia, 10h30 (nova tentativa às 15h), com o computador do usuário ligado:** skill `/tiktok-relatorios-navegador`. Baixa no Seller Center o relatório de pedidos e o de produtos, reduz sem dados pessoais (`entrada/`), faz commit e push. Se não conseguir, e-mail avisando.
+- As tarefas agendadas disparam dentro da sessão de trabalho do Claude (que tem os conectores Bling, Google Sheets e Gmail).
+- **Planilha do comercial "Plano de Ação Avelar Shop"** (`1EFTCnCdn6-r8DRNOW1CrPfmjxE2luqY_kma2H_uI6J8`): **SOMENTE LEITURA, jamais alterar** (outras pessoas trabalham nela). Abas usadas: Produtos Novos, Controle Promoção ML, Regra Especial Shopee AGO2026.
+- Nunca alteram preço no CONTROLE (col. L). Depois de uma carga de produtos novos, acrescente os SKUs em `.claude/skills/tiktok-custo-diario/dados/mapa.json`.
 
 ## Processo quando chegar uma nova planilha de produtos do TikTok
 
